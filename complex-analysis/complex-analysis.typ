@@ -57,6 +57,24 @@ $ overline(z) := x - i y $
 
 == Limits and Continuity
 
+== Holomorphic Functions
+
+#definition[
+  Let $f: Omega -> CC$ be a function defined on an open set $Omega subset.eq CC$.
+  We say $f$ is #index(entry: [holomorphic functions])[holomorphic] at $z in Omega$ if
+  the quotient
+  $
+    (f(z + h) - f(z)) / h
+  $
+  converges when $h -> 0$. Its limit is denoted by $f'(z)$ and called the
+  derivative of $f$ at $z$. We write
+  $
+    f'(z) = lim_(h -> 0) (f(z + h) - f(z)) / h
+  $
+]
+
+In usual cases, we shall not consider infinite complex derivatives.
+
 == Smooth Curves
 
 A #index[parameterized curve] is a function
@@ -208,6 +226,9 @@ A simple observation is that such function $g$ is continuous. See @prop:2.
   $
   since $f$ is increasing. This proves that $f$ is continuous at $x_0$.
 ]
+
+If $gamma$ and $alpha$ are smooth curves, and they are equivalent via $g$, then
+apart from continuity, $g$ must enjoy some other nice properties.
 
 == Complex Integration along Curves
 
