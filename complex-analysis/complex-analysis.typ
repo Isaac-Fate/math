@@ -57,6 +57,8 @@ $ overline(z) := x - i y $
 
 == Limits and Continuity
 
+#lorem(100)
+
 == Holomorphic Functions
 
 #definition[
@@ -73,7 +75,100 @@ $ overline(z) := x - i y $
   $
 ]
 
-In usual cases, we shall not consider infinite complex derivatives.
+#note[
+  As we shall see later, if $f$ is holomorphic at $z$, then $f$ must also be
+  holomorphic in a neighborhood of $z$.
+]
+
+Recall in real analysis, we introduced the concept of infinite derivatives to
+handle the problems of vertical tangent lines
+@apostolMathematicalAnalysisModern1974.
+
+For example, as illustrated in @fig:2, the function $f(x) = root(3, x), space x in [-1, 1]$ has
+a vertical tangent line at $x = 0$. It is by definition not differentiable at $x = 0$.
+And hence a lot of theorems do not apply to $f(x) = root(3, x)$ if we assume
+functions must be differentiable in some open interval. For instance, we cannot
+apply the Mean Value Theorem to $f(x) = root(3, x)$ on $[-1, 1]$ if the
+assumption of the theorem requires that $f$ must be differentiable on $(-1, 1)$.
+By allowing infinite derivatives, and modifying the assumptions of being
+differentiable to the existence of finite or infinite derivatives, we can solve
+this problem.
+
+However, in complex analysis usually we shall not consider infinite complex
+derivatives.
+
+#figure(image("./figures/cubic-root-function.svg", width: 60%), caption: [
+  Cubic root function $f(x) = root(3, x), space x in [-1, 1]$
+  and its vertical tangent line at $x=0$.
+])<fig:2>
+
+We say $f$ is #index(entry: [holomorphic functions in open sets])[holomorphic in]
+an open set $Omega$ if $f$ is holomorphic at every point of $Omega$. Let $E$ be
+a closed subset of $CC$. We say $f$ is #index(entry: [holomorphic functions on closed sets])[holomorphic on] $E$ if $f$ is
+holomorphic in an open set containing $E$. Finally, if $f$ is holomorphic on $CC$,
+we say $f$ is #index(entry: [entire functions])[entire].
+
+#example[
+  The simplest example of a holomorphic function is the constant function $f(z) = c$.
+  Its derivative is $f'(z) = 0$.
+]
+
+#example[
+  The function $f(z) = z$ is entire. Its derivative is $f'(z) = 1$.
+]
+
+#example[
+  The real and image parts of a complex function $f(z) = z$:
+  + $Re(z)$
+  + $Im(z)$
+  are not holomorphic at any point.
+
+  To see $Re(z)$ is not holomorphic, we approach to $z = x + i y, space x, y in RR$ from
+  the real and imaginary axes, respectively. Approaching from the real axis, we
+  have
+  $
+    lim_(u -> 0) (Re(z + u) - Re(z)) / u
+    = lim_(u -> 0) (Re(x + i y + u) - Re(x + i y)) / u
+    = lim_(u -> 0) (x + u - x) / u = 1
+  $
+  and from the imaginary axis, we have
+  $
+    lim_(v -> 0) (Re(z + i v) - Re(z)) / (i v)
+    = lim_(v -> 0) (Re(x + i y + i v) - Re(x + i y)) / (i v)
+    = lim_(v -> 0) (x - x) / (i v) = 0
+  $<eq:5>
+  where $u, v in RR$. Since the two limits are different, $Re(z)$ is not
+  holomorphic at $z$.
+
+  #note[
+    In @eq:5, referring to the definition, we really should let $i v -> 0$. But in
+    this case, $i v -> 0$ is equivalent to $v -> 0$.
+  ]
+
+  A similar argument shows that $Im(z)$ is not holomorphic either.
+]
+
+#example[
+  The complex conjugate function $f(z) = overline(z)$ is not holomorphic at any
+  point. This is because we can write the real and imaginary parts of $z$ as
+  $
+    Re(z) = (z + overline(z)) / 2 quad "and" quad Im(z) = (z - overline(z)) / (2 i)
+  $
+  If the conjugate $f(z) = overline(z)$ were to be holomorphic, then the real and
+  imaginary parts would also be holomorphic due to @prop:3. But we have shown in
+  the previous example that the real and imaginary parts of $z$ are not
+  holomorphic. Therefore, $f(z) = overline(z)$ is not holomorphic.
+]
+
+#proposition[
+  If $f$ and $g$ are holomorphic in an open set $Omega$, then:
+  + $f + g$ is holomorphic in $Omega$ and $(f + g)' = f' + g'$.
+  + $f dot g$ is holomorphic in $Omega$ and $(f dot g)' = f' g + f g'$.
+  + If $g(z_0) != 0$, then $f/g$ is holomorphic at $z_0$ and
+    $
+      (f / g)'(z_0) = (f'(z_0) g(z_0) - f(z_0) g'(z_0)) / g(z_0)^2
+    $
+]<prop:3>
 
 == Smooth Curves
 
@@ -146,7 +241,7 @@ A curve $gamma = z(t)$ is said to be smooth if
 other and are smooth in most part. The only problematic point is $t = 0$ for $gamma_2$.
 
 #figure(
-  image("figures/two-spirals.png"),
+  image("figures/two-spirals.svg", width: 60%),
   caption: [
     Left: $gamma_1(t) = t^3 cos 1/t + i t^3 sin 1/t$ is smooth. Right: $gamma_2(t) = t^2 cos 1/t + i t^2 sin 1/t$ is
     not.
