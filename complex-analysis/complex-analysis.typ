@@ -11,7 +11,7 @@
 
 #outline()
 
-= Complex Numbers
+= Complex Numbers and the Complex Plane
 
 == Algebraic Operations
 
@@ -52,6 +52,90 @@ the magnitude of $z$.
 
 The #index[complex conjugate] of $z = x + i y$ is defined by
 $ overline(z) := x - i y $
+
+== Topology of the Complex Plane
+
+#definition[
+  The #index[open disk] of radius $r$ centered at $z_0$ is the set
+  $
+    D(z_0, r) := { z in CC | |z - z_0| < r }
+  $
+  The #index[closed disk] of radius $r$ centered at $z_0$ is the set
+  $
+    overline(D)(z_0, r) := { z in CC | |z - z_0| <= r }
+  $
+]
+
+#definition[
+  Let $S subset.eq CC$ be a nonempty subset in the complex plane. We say $S$ is #index(entry: [disconnected sets])[disconnected] if
+  there exist two open sets $U, V subset.eq CC$ such that
+  + $U != emptyset$ and $V != emptyset$,
+  + $U sect V = emptyset$, and
+  + $S subset.eq U union V$.
+
+  The last two conditions are equivalent to saying that $S$ is contained in the
+  disjoint union of $U$ and $V$, i.e., $S subset.eq U union.sq V$.
+
+  Otherwise, we say $S$ is #index(entry: [connected sets])[connected].
+]
+
+#example[
+  The empty set $emptyset$ and the entire complex plane $CC$ are connected.
+]
+
+#theorem[
+  Let $Omega in CC$ be an open set. Then the following statements are equivalent:
+  + $Omega$ is connected.
+  + $Omega$ is curve-connected.
+  + $Omega$ is path-connected.
+]
+
+#proof[
+  We prove 1 $==>$ 2 $==>$ 3 $==>$ 1.
+
+  *Proof of 1 $==>$ 2:* Suppose $Omega$ is connected. Fix a point $z_0 in Omega$.
+  Let $U$ be the set of all points in $Omega$ that can be joined to $z_0$ by a
+  curve, i.e.,
+  $
+    U = {z in Omega mid(|) "There exits a piecewise smooth" gamma: [a, b] -> Omega "from" z_0 "to" z}
+  $
+  And let $V = Omega - U$, which means $V$ is the set of all points in $Omega$ that
+  cannot be joined to $z_0$ by a curve. Clearly $U$ and $V$ are disjoint. We now
+  claim that $U$ and $V$ are open sets.
+
+  To see $U$ is open, let $z in U$. Because $Omega$ is open, there exists an open
+  disk $D(z, r) subset.eq Omega$. We want to show it is also contained in $U$,
+  i.e., $D(z, r) subset.eq U$. Pick any point $w in D(z, r)$. We need to show $w in U$,
+  which means we need to find a curve from $z_0$ to $w$. Since $z in U$, there
+  exists a curve $alpha$ from $z_0$ to $z$. Then, we can join $z$ and $w$ by a
+  line segment $beta$. After that, we can travel from $z_0$ to $w$ by first
+  passing through $alpha$ and then $beta$, which gives us a curve $gamma$ from $z_0$ to $w$.
+
+  Formally, $beta: [0, 1] -> Omega$ is given by
+  $
+    beta(t) = (1 - t) z + t w, quad t in [0, 1]
+  $
+  We claim
+  + $beta$ is well-defined, and
+  + $beta'$ exists on $[0, 1]$ and is continuous.
+
+  By the well-definedness, we mean $beta(t)$ is always in $Omega$ for all $t in [0, 1]$.
+  To see this, we consider the distance from $beta(t)$ to $z$:
+  $
+    abs(beta(t) - z) &= abs((1 - t) z + t w - z) quad& \
+                     &= abs(t (w - z)) \
+                     &= t abs(w - z)                 &"since" t >= 0\
+                     &< t r                          & "since" w in D(z, r)\
+                     &<= r                           & "since" t <= 1
+  $
+  Hence, $beta(t) in D(z, r), space forall t in [0, 1]$, which is indeed
+  well-defined. Our second claim that $beta'$ exists and is continuous is evident.
+
+  The curve $gamma: [a, b + 1]$ is then given by
+  $
+    gamma(t) = cases(alpha(t) &"if" a <= t <= b, beta(t - b) &"if" b < t <= b + 1)
+  $
+]
 
 = Complex Functions
 
@@ -169,6 +253,48 @@ we say $f$ is #index(entry: [entire functions])[entire].
       (f / g)'(z_0) = (f'(z_0) g(z_0) - f(z_0) g'(z_0)) / g(z_0)^2
     $
 ]<prop:3>
+
+#theorem(
+  title: [Chain Rule],
+)[
+  Let $Omega, U subset.eq CC$ be open subsets. If $f: Omega -> U$ and $g: U -> CC$ are
+  holomorphic, then the composite function $g compose f$ is also holomorphic in $Omega$ and
+  its derivative is given by
+  $
+    (g compose f)'(z) = g'(f(z)) f'(z), quad z in Omega
+  $
+]
+
+== Power Series
+
+Recall in real analysis, we defined the number $e$ as
+$
+  e := sum_(n=0)^oo 1 / n!
+$
+and the exponential function $exp: RR -> RR$ as the power series
+$
+  exp(x) := sum_(n=0)^oo x^n / n!, quad x in RR
+$<eq:8>
+Then, we showed an important property:
+$
+  exp(x + y) = exp(x) exp(y), space forall x, y in RR
+$<eq:6>
+By applying @eq:6, it is easy to prove
++ $exp(n) = e^n, space forall n in NN$
++ $exp(1/n) = root(n, e) space forall n in NN$, which is proven by showing $(exp(1/n))^n = e$
+
+It then follows that $exp(x)$ agrees with $e^x$ for every rational number $x in QQ$.
+This tells us that we can extend the exponents of $e$ to real numbers:
+$
+  e^x := exp(x), quad x in RR
+$
+
+Now, we can take one step further and extend the exponents of $e$ to complex
+numbers. Define
+$
+  exp(z) := sum_(n=0)^oo z^n / n!, quad z in CC
+$<eq:7>
+When $z in RR$, @eq:7 reduces to @eq:8.
 
 == Smooth Curves
 
