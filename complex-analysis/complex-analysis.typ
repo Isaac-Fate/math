@@ -86,14 +86,14 @@ $ overline(z) := x - i y $
 #theorem[
   Let $Omega in CC$ be an open set. Then the following statements are equivalent:
   + $Omega$ is connected.
-  + $Omega$ is curve-connected.
   + $Omega$ is path-connected.
+  + $Omega$ is curve-connected.
 ]
 
 #proof[
-  We prove 1 $==>$ 2 $==>$ 3 $==>$ 1.
+  We prove 1 $==>$ 3 $==>$ 2 $==>$ 1.
 
-  *Proof of 1 $==>$ 2:* Suppose $Omega$ is connected. Fix a point $z_0 in Omega$.
+  *Proof of 1 $==>$ 3:* Suppose $Omega$ is connected. Fix a point $z_0 in Omega$.
   Let $U$ be the set of all points in $Omega$ that can be joined to $z_0$ by a
   curve, i.e.,
   $
@@ -110,6 +110,14 @@ $ overline(z) := x - i y $
   exists a curve $alpha$ from $z_0$ to $z$. Then, we can join $z$ and $w$ by a
   line segment $beta$. After that, we can travel from $z_0$ to $w$ by first
   passing through $alpha$ and then $beta$, which gives us a curve $gamma$ from $z_0$ to $w$.
+  See @fig:3 for an illustration.
+
+  #figure(
+    image("./figures/piecewise-smooth-curve-from-z0-to-w.svg", width: 60%),
+    caption: [
+      Construction of a piecewise smooth curve from $z_0$ to $w$.
+    ],
+  )<fig:3>
 
   Formally, $beta: [0, 1] -> Omega$ is given by
   $
@@ -117,7 +125,7 @@ $ overline(z) := x - i y $
   $
   We claim
   + $beta$ is well-defined, and
-  + $beta'$ exists on $[0, 1]$ and is continuous.
+  + $beta$ is a smooth curve.
 
   By the well-definedness, we mean $beta(t)$ is always in $Omega$ for all $t in [0, 1]$.
   To see this, we consider the distance from $beta(t)$ to $z$:
@@ -129,12 +137,40 @@ $ overline(z) := x - i y $
                      &<= r                           & "since" t <= 1
   $
   Hence, $beta(t) in D(z, r), space forall t in [0, 1]$, which is indeed
-  well-defined. Our second claim that $beta'$ exists and is continuous is evident.
+  well-defined. Our second claim that $beta$ is smooth is evident since $beta'$ exists
+  and is continuous.
 
   The curve $gamma: [a, b + 1]$ is then given by
   $
     gamma(t) = cases(alpha(t) &"if" a <= t <= b, beta(t - b) &"if" b < t <= b + 1)
   $
+  Clearly, $gamma$ is a piecewise smooth curve from $z_0$ to $w$ since $alpha$ is
+  piecewise smooth and $beta$ is smooth. Therefore, by the definition of $U$, we
+  have $w in U$. Because $w in D(z, r)$ is arbitrarily chosen, it follows that $D(z, r) subset.eq U$,
+  which further implies that $U$ is open.
+
+  Now, we show that $V$ is also open. Let $z in V$. There exists an open disk $D(z, r) subset.eq Omega$ since $Omega$ is
+  open. We want to show $D(z, r) subset.eq V$, that is, to show there is no curve
+  from $z_0$ to $w$ for any $w in D(z, r)$. Assume that there exits a piecewise
+  smooth curve $gamma$ from $z_0$ to $w$. By applying the same argument as above
+  when we proved $U$ is open, we can construct a (smooth) line segment $beta$ from $z$ to $w$.
+  Now, let $alpha$ be the curve obtained by joining $gamma$ and $beta^-$. Then,
+  one can show that $alpha$ is a piecewise smooth curve from $z_0$ to $z$ using
+  the a similar argument we did before. This leads to a contradiction since there
+  cannot be a curve from $z_0$ to $z$ be the definition of $V$. Therefore, our
+  assumption that there exists a curve from $z_0$ to $w$ is false, and hence $w in V$,
+  which further implies that $D(z, r) subset.eq V$. This proves $V$ is open.
+
+  So far, we have shown that both $U$ and $V$ are open and $Omega = U union.sq V$.
+  We also note that $U != emptyset$ since $z_0 in U$. This is because that the
+  constant function $gamma: t |-> z_0$ is a smooth curve from $z_0$ to $z_0$. Now,
+  because $Omega$ is connected, by definition, we must have $V = emptyset$.
+  equivalently, $Omega = U$, which means $Omega$ every point in $Omega$ can be
+  joined to $z_0$ by a curve.
+
+  *Proof of 3 $==>$ 2:*
+
+  *Proof of 2 $==>$ 1:*
 ]
 
 = Complex Functions
