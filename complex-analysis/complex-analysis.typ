@@ -168,9 +168,47 @@ $ overline(z) := x - i y $
   equivalently, $Omega = U$, which means $Omega$ every point in $Omega$ can be
   joined to $z_0$ by a curve.
 
-  *Proof of 3 $==>$ 2:*
+  *Proof of 3 $==>$ 2:* The proof of this direction is trivial since loosely
+  speaking, every curve is a path. Let $z, w in Omega$. There exists a curve $gamma: [a, b] -> Omega$ from $z$ to $w$.
+  Let $p: [0, 1] -> Omega$ be given by
+  $
+    p(t) = gamma((1-t)a + t b), quad t in [0, 1]
+  $
+  Note that $p$ is continuous since both $gamma$ and $t |-> (1-t) a + t b$ are
+  continuous. Notice also that $t(0) = z$ and $t(1) = w$. Therefore, $p$ is indeed
+  a path from $z$ to $w$. Hence, $Omega$ is path-connected.
 
-  *Proof of 2 $==>$ 1:*
+  *Proof of 2 $==>$ 1:* Finally,we need to show $Omega$ is connected given that it
+  is path-connected. We shall prove by contradiction. Assume on the contrary that $Omega$ is
+  not connected. Then, there exist two nonempty open sets $U, V subset.eq CC$ such
+  that $Omega = U union.sq V$. Suppose $z in U$ and $w in V$. There exists a path $p: [0, 1] -> Omega$ from $z$ to $w$.
+  Let
+  $
+    t^* = sup { t in [0, 1] mid(|) p(s) in U, space forall s in [0, t]}
+  $<eq:9>
+  Note that $t^*$ exists since $[0, 1]$ is bounded above. Consider the point $p(t^*)$.
+  Loosely speaking, $p(t^*)$ is somewhat the point that separates $U$ and $V$. We
+  now show $p(t^*)$ cannot be either in $U$ or $V$ to reach a contradiction.
+
+  Suppose first $p(t^*) in U$. Then, there exists an open disk $D(p(t^*), epsilon) subset.eq U$ for
+  some $r > 0$ since $U$ is open. Note that the preimage $p^(-1)[D(p(t^*, epsilon))]$ must
+  be open in $[0, 1]$ because $p$ is continuous. But
+  $
+    p^(-1)[D(p(t^*, epsilon))] = [0, t^*]
+  $
+  due to the definition of $t^*$. This implies that $t^* = 1$. Then, $p(t) in U, space forall t in [0, 1]$,
+  which leads to a contradiction since $p(1) = w in V$ and $U sect V = emptyset$.
+
+  We have seen $p(t^*) in.not U $. Then, we must have $p(t^*) in V$. Because $V$ open,
+  there exists an open disk $D(p(t^*), epsilon) subset.eq V$. Since $p$ is
+  continuous, there exists $delta > 0$ such that
+  $
+    p(t) in D(p(t^*), epsilon) subset.eq V quad forall t in (t^* - delta, t^* + delta)
+  $
+  In particular, $p(t^* - delta/2) in V$. This contradicts @eq:9.
+
+  Therefore, $p(t^*) in.not U$ and $p(t^*) in.not V$, which contradicts $Omega = U union.sq V$.
+  In conclusion, $Omega$ is connected.
 ]
 
 = Complex Functions
