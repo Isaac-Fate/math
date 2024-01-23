@@ -53,17 +53,56 @@ the magnitude of $z$.
 The #index[complex conjugate] of $z = x + i y$ is defined by
 $ overline(z) := x - i y $
 
-== Topology of the Complex Plane
+== Topology on the Complex Plane
+
+Topology is the collection of all open subsets in a set.
 
 #definition[
-  The #index[open disk] of radius $r$ centered at $z_0$ is the set
-  $
-    D(z_0, r) := { z in CC | |z - z_0| < r }
-  $
-  The #index[closed disk] of radius $r$ centered at $z_0$ is the set
-  $
-    overline(D)(z_0, r) := { z in CC | |z - z_0| <= r }
-  $
+  A #index[topology] on a set $X$ is a collection $cal(T)$ of subsets of $X$ having
+  the following properties:
+  + $emptyset, X in cal(T)$.
+  + $cal(T)$ is closed under arbitrary unions, i.e., $U_alpha in cal(T) space forall alpha in I ==> union.big_(alpha in I) U_alpha in cal(T)$.
+  + $cal(T)$ is closed under finite intersections, i.e., $U_1, U_2 in cal(T) ==> U_1 sect U_2 in cal(T)$.
+]
+
+A set for which a topology has been specified is called a #index(entry: [topological spaces])[topological space],
+and is denoted by $(X, cal(T))$. If the topology is clear from the context, we
+simply write $X$ instead of $(X, cal(T))$.
+
+#example[
+  The only topology on the empty set $emptyset$ is the singleton $cal(T) = {emptyset}$.
+]
+
+#example[
+  For a set $X$, the topology containing only $emptyset$ and $X$ is called the #index[trivial topology].
+]
+
+#example[
+  The power set $cal(P)(X)$ of a set $X$ is a topology on $X$, and is referred to
+  as the #index[discrete topology].
+]
+
+The #index[open disk] of radius $r$ centered at $z_0$ is the set
+$
+  D(z_0, r) := { z in CC | |z - z_0| < r }
+$
+The #index[closed disk] of radius $r$ centered at $z_0$ is the set
+$
+  overline(D)(z_0, r) := { z in CC | |z - z_0| <= r }
+$
+
+#definition[
+  Let $X$ be a topological space. A #index(entry: [separation of topological spaces])[separation] of $X$ is
+  a pair of open subsets $U$ and $V$ such that
+  + $U != emptyset$ and $V != emptyset$,
+  + $U sect V = emptyset$, and
+  + $X = U union V$.
+
+  The last two conditions are equivalent to saying that $X$ is contained in the
+  disjoint union of $U$ and $V$, i.e., $X subset.eq U union.sq V$.
+
+  If such a separation exists, we say $X$ is #index(entry: [disconnected topological spaces])[disconnected].
+  Otherwise, we say $X$ is #index(entry: [connected topological spaces])[connected].
 ]
 
 #definition[
