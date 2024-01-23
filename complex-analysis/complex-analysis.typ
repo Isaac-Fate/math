@@ -91,6 +91,10 @@ $
   overline(D)(z_0, r) := { z in CC | |z - z_0| <= r }
 $
 
+The complex plane $CC$ is endowed with the #index[Euclidean topology]. A subset $Omega$ in $CC$ is
+open if and only if for every point $z in Omega$, there exists an open disk $D(z, r) subset.eq Omega$ for
+some $r > 0$.
+
 #definition[
   Let $X$ be a topological space. A #index(entry: [separation of topological spaces])[separation] of $X$ is
   a pair of open subsets $U$ and $V$ such that
@@ -105,21 +109,23 @@ $
   Otherwise, we say $X$ is #index(entry: [connected topological spaces])[connected].
 ]
 
-#definition[
-  Let $S subset.eq CC$ be a nonempty subset in the complex plane. We say $S$ is #index(entry: [disconnected sets])[disconnected] if
-  there exist two open sets $U, V subset.eq CC$ such that
-  + $U != emptyset$ and $V != emptyset$,
-  + $U sect V = emptyset$, and
-  + $S subset.eq U union V$.
-
-  The last two conditions are equivalent to saying that $S$ is contained in the
-  disjoint union of $U$ and $V$, i.e., $S subset.eq U union.sq V$.
-
-  Otherwise, we say $S$ is #index(entry: [connected sets])[connected].
+#example[
+  The empty set $emptyset$ and the entire space $X$ are connected.
 ]
 
-#example[
-  The empty set $emptyset$ and the entire complex plane $CC$ are connected.
+The following proposition gives a useful characterization of connectedness of a
+topological subspace.
+
+#proposition[
+  Let $Y subset.eq X$ be a _nonempty_ topological subspace of $X$. Then $Y$ is
+  disconnected if and only if there exist two open sets $U, V$ in $X$ such that
+  + $U != emptyset$ and $V != emptyset$,
+  + $U sect V = emptyset$, and
+  + $Y subset.eq U union V$.
+]
+
+#note[
+  We must rule out the case $Y = emptyset$ since $emptyset$ is connected.
 ]
 
 #theorem[
