@@ -623,6 +623,51 @@ When $z in RR$, @eq:7 reduces to @eq:8.
 
 == Complex Integration along Curves
 
+Think about how to integrate a complex-valued function $f$ of a real variable $x$ on
+a closed interval $[a, b]$. Naturally, the result should be a complex number
+whose real part is the integral of $Re(f)$ and imaginary part is the integral of $Im(f)$.
+
+#definition[
+  Let $f: [a, b] -> CC$ be a complex valued function. Suppose that $Re(f)$ and $Im(f)$ are
+  both integrable on $[a, b]$. We define the #index[complex integral] of $f$ on $[a, b]$ by
+  $
+    integral_a^b f(x) dif x := integral_a^b Re[f(x)] dif x + i integral_a^b Im[f(x)] dif x
+  $<eq:10>
+]
+
+Thanks to the parameterizations of curves, we can reduce the complex integral of
+a general complex function along a curve to the one like @eq:10.
+
+#definition[
+  Let $gamma$ be a smooth curve parameterized by $z: [a, b] -> CC$, and $f$ a
+  continuous function on $gamma$. Then the #index(
+    entry: [complex integral of a function along a curve],
+  )[complex integral of $f$ along $gamma$] is defined by
+  $
+    integral_gamma f(z) dif z := integral_a^b f(z(t)) z'(t) dif t
+  $<eq:11>
+]
+
+Recall for the same curve $gamma$, there may be multiple different but
+equivalent parameterizations. And hence for different parameterizations, we have
+different expressions on the right-hand side of @eq:11. However, we shall see
+that the complex integral of a function along a curve is independent of the
+parameterization, which means the integral is indeed well-defined.
+
+Suppose $z: [a, b] -> CC$ and $w: [c, d] -> CC$ are two parameterizations of the
+same curve $gamma$, and they are equivalent via $g: [a, b] -> [c, d]$. We need
+to show
+$
+  integral_gamma f(z(t)) z'(t) dif t = integral_gamma f(w(s)) w'(s) dif s
+$
+We have
+$
+  integral_gamma f(w(s)) w'(s) dif s &= integral_gamma f(w(g(t))) w'(g(t)) g'(t) dif t quad& \
+                                     &= integral_gamma f(w(g(t))) dif / (dif t) [ w(g(t)) ] dif t \
+                                     &= integral_gamma f(z(t)) z'(t) dif t                 &"since" z(t) = w(g(t))
+$
+This proves $integral_gamma f(z) dif z$ is independent of the parameterization.
+
 // References
 #bibliography("complex-analysis.bib", title: "References")
 
