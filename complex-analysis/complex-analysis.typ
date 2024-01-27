@@ -55,10 +55,16 @@ $ overline(z) := x - i y $
 
 == Smooth Curves
 
+Using a set of points of describe a curve may not be sufficient because we also
+need the direction of a curve at each point. To solve this problem, we think of
+a curve as a trajectory of some particle. The position of this particle at time $t$ is
+given by a function $z(t)$.
+
 A #index[parameterized curve] is a function
 $
-  gamma: RR supset.eq [a, b] -> CC
+  z: RR supset.eq [a, b] -> CC
 $
+We say curve $gamma$ is traced out by $z(t)$. It is the set $gamma = z([a, b])$.
 
 A complex-valued function $f: [a, b] -> CC$ is differentiable at a point $x in (a, b)$ if
 both the real and imaginary parts of $f$ are differentiable at $x$, and its
@@ -69,47 +75,46 @@ $
 The one-sided derivatives are defined similarly.
 
 When we are going to study complex integration, we shall always be interested in #index[smooth curves].
-A curve $gamma: [a, b] -> CC$ is said to be smooth if
-+ $gamma'(t)$ exists and is continuous on $[a, b]$,
-+ and $gamma'(t) != 0$ for all $t in (a, b)$.
+A curve $z: [a, b] -> CC$ is said to be smooth if
++ $z'(t)$ exists and is continuous on $[a, b]$, and
++ $z'(t) != 0$ for all $t in [a, b]$, which means it never vanishes.
 
 #note[
-  The derivative $gamma'$ of a smooth curve $gamma$ is necessarily finite at the
-  two endpoints since it is continuous throughout $[a, b]$. We also say $gamma$ is
+  The derivative $z'$ of a smooth curve $z$ is necessarily finite at the two
+  endpoints since it is continuous throughout $[a, b]$. We also say $gamma$ is
   continuously differentiable on $[a, b]$.
 ]
 
 #exercise[
   Show that
-  + the curve $gamma_1(t) = t^3 cos 1/t + i t^3 sin 1/t$ is smooth,
-  + but $gamma_2(t) = t^2 cos 1/t + i t^2 sin 1/t$ is not
+  + the curve $z_1(t) = t^3 cos 1/t + i t^3 sin 1/t$ is smooth,
+  + but $z_2(t) = t^2 cos 1/t + i t^2 sin 1/t$ is not
   where $t in [0, b]$ in both cases.
 ]
 
 #solution[
-  We first show that $gamma_1$ is smooth. It is clear $gamma_1$ is differentiable
-  in the open interval $(0, b)$
+  We first show that $z_1$ is smooth. It is clear $z_1$ is differentiable in the
+  open interval $(0, b)$
   with derivative
   $
-    gamma'_1 (t) = 3 t^2 cos 1/t + t sin 1/t + i (3 t^2 sin 1/t - t cos 1/t),
+    z'_1 (t) = 3 t^2 cos 1/t + t sin 1/t + i (3 t^2 sin 1/t - t cos 1/t),
     quad t in (0, b)
   $<eq:3>
-  And $gamma'_1(t)$ is continuous in $(0, b)$. The problem is whether $gamma'_1(t)$ exists
-  at the endpoints $t = 0$ and $t = b$. (Well, we can immediately see that $gamma'_1(b)$ exists
+  And $z'_1(t)$ is continuous in $(0, b)$. The problem is whether $z'_1(t)$ exists
+  at the endpoints $t = 0$ and $t = b$. (Well, we can immediately see that $z'_1(b)$ exists
   by considering a slightly larger domain $[0, b + delta]$ for some $delta > 0$.)
-  When checking the existence of $gamma'_1(0)$, one may suggest to use the
-  definition of derivative, which is absolutely correct. However, if we know the
-  limit of $gamma'(t)$ exists at an endpoint, then the (one-sided) derivative must
-  also exist there and equal to the limit. See @prop:1 for a proof of this fact.
-  From @eq:3, we note that
+  When checking the existence of $z'_1(0)$, one may suggest to use the definition
+  of derivative, which is absolutely correct. However, if we know the limit of $gamma'(t)$ exists
+  at an endpoint, then the (one-sided) derivative must also exist there and equal
+  to the limit. See @prop:1 for a proof of this fact. From @eq:3, we note that
   $
-    lim_(t -> 0) gamma'_1(t) = 0 quad
-    "and" quad lim_(t -> b) gamma'_1(t) "also exists"
+    lim_(t -> 0) z'_1(t) = 0 quad
+    "and" quad lim_(t -> b) z'_1(t) "also exists"
   $
-  Therefore, $gamma'_1(t)$ indeed exists on $[0, b]$ and is continuous, which
+  Therefore, $z'_1(t)$ indeed exists on $[0, b]$ and is continuous, which
   satisfies the first condition of smooth curves.
 
-  We also need to show that $gamma'_1(t) != 0$ for all $t in (0, b)$. The equation $gamma'_1(t) = 0$ yields
+  We also need to show that $z'_1(t) != 0$ for all $t in (0, b)$. The equation $z'_1(t) = 0$ yields
   $
     cases(3 t^2 cos 1/t + t sin 1/t = 0, 3 t^2 sin 1/t - t cos 1/t = 0)
   $<eq:4>
@@ -123,25 +128,25 @@ A curve $gamma: [a, b] -> CC$ is said to be smooth if
   $
   Since $t > 0$, we must have $sin 1/t = 0$. But then by plugging $sin 1/t = 0$ into
   the @eq:4, we have $cos 1/t = 0$, which leads to a contradiction because $sin 1/t$ and $cos 1/t$ cannot
-  be zero simultaneously. This shows @eq:4 has no solution, and hence $gamma'_1(t) != 0$ for
-  all $t in (0, b)$. In conclusion, $gamma_1$ is smooth.
+  be zero simultaneously. This shows @eq:4 has no solution, and hence $z'_1(t) != 0$ for
+  all $t in (0, b)$. In conclusion, $z_1$ is smooth.
 
-  Now, we show that $gamma_2$ is not a smooth curve. In the open interval $(0, b)$,
-  we have
+  Now, we show that $z_2$ is not a smooth curve. In the open interval $(0, b)$, we
+  have
   $
-    gamma'_2(t) = 2t cos 1/t + sin 1/t + i (2t sin 1/t - cos 1/t)
+    z'_2(t) = 2t cos 1/t + sin 1/t + i (2t sin 1/t - cos 1/t)
   $
-  Though the derivative of $gamma_2$ exists at $t = 0$ (one can show by definition
-  that $gamma'_2(0) = 0$), it is not continuous there.
+  Though the derivative of $z_2$ exists at $t = 0$ (one can show by definition
+  that $z'_2(0) = 0$), it is not continuous there.
 ]
 
-@fig:1 depicts the two curves $gamma_1$ and $gamma_2$. They look similar to each
-other and are smooth in most part. The only problematic point is $t = 0$ for $gamma_2$.
+@fig:1 depicts the two curves $z_1$ and $z_2$. They look similar to each other
+and are smooth in most part. The only problematic point is $t = 0$ for $z_2$.
 
 #figure(
   image("figures/two-spirals.svg", width: 60%),
   caption: [
-    Left: $gamma_1(t) = t^3 cos 1/t + i t^3 sin 1/t$ is smooth. Right: $gamma_2(t) = t^2 cos 1/t + i t^2 sin 1/t$ is
+    Left: $z_1(t) = t^3 cos 1/t + i t^3 sin 1/t$ is smooth. Right: $z_2(t) = t^2 cos 1/t + i t^2 sin 1/t$ is
     not.
   ],
 )<fig:1>
@@ -171,48 +176,48 @@ other and are smooth in most part. The only problematic point is $t = 0$ for $ga
   proves that $f$ is differentiable at $a$ and $f'_+(a) = L$.
 ]
 
-A curve may have multiple parameterizations. For example, $gamma(t) = t + i t, t in [0, 1]$
-and $alpha(s) = 1/2 s+ i 1/2 s, s in [0, 2]$ both trace out the same straight
-line. But they vary in speed. How can we define the equivalence of two
-parameterized curves?
+A curve may have multiple parameterizations. For example, $z(t) = t + i t, t in [0, 1]$
+and $w(s) = 1/2 s+ i 1/2 s, s in [0, 2]$ both trace out the same straight line.
+But they vary in speed. How can we define the equivalence of two parameterized
+curves?
 
-Imagine two particles $P$ and $Q$ are traveling along curves $gamma(t), t in [a, b]$ and $alpha(s), s in [c, d]$,
-respectively. suppose $P$ spent time $t$ and arrived at $z = gamma(t)$ (for the $n$-th
-time). Then for $Q$ to arrive at the same point $z = alpha(s)$ (for the $n$-th
-time), the time it will take, $s$, is certain and hence uniquely determined by $t$.
-This gives rise to a function $s = g(t)$.
+Imagine two particles $P$ and $Q$ are traveling along the same curve $gamma$ in
+two different ways $z(t), t in [a, b]$ and $w(s), s in [c, d]$, respectively.
+suppose $Q$ spent time $s$ and arrived at $z = z(t)$ (for the $n$-th time). Then
+for $P$ to arrive at the same point $z = w(s)$ (for the $n$-th time), the time
+it will take, $t$, is certain and hence uniquely determined by $s$. This gives
+rise to a function $t = g(s)$.
 
 Moreover, if we think of the previous process in the opposite way, that is,
-determined how much time $P$ will take to arrive at $Q$'s position, then we find
+determined how much time $Q$ will take to arrive at $P$'s position, then we find
 that $g$ must be a bijection.
 
 And as particle $P$ spends more time traveling, the spent time of $Q$ must also
 increase, which means $g$ is a increasing function.
 
 #definition[
-  Let $gamma: [a, b] -> CC$ and $alpha: [c, d] -> CC$ be two parameterized curves.
-  We say $gamma$ and $alpha$ are #index(entry: [equivalent parameterizations])[equivalent] via $g$ if
-  there exists a bijection $g: [a, b] <-> [c, d]$ such that
+  Let $z: [a, b] -> CC$ and $w: [c, d] -> CC$ be two parameterized curves. We say $z(t)$ and $w(s)$ are #index(entry: [equivalent parameterizations])[equivalent] via $g$ if
+  there exists a bijection $g: [c, d] <-> [a, b]$ such that
   + $g$ is increasing,
-  + and $gamma(t) = alpha(g(t))$ for all $t in [a, b]$.
-  We also say that $gamma$ and $alpha$ are two #index[reparametrization] of each
+  + and $z((g(s))) = w(s)$ for all $s in [c, d]$.
+  We also say that $z(t)$ and $w(s)$ are two #index[reparametrization] of each
   other.
 ]
 
 A simple observation is that such function $g$ is continuous. See @prop:2.
 
 #proposition[
-  If $f: [a, b] -> [c, d]$ is a monotonic surjective function, then $f$ is
+  If $f: [c, d] -> [a, b]$ is a monotonic surjective function, then $f$ is
   continuous.
 ]<prop:2>
 
 #proof[
-  Without loss of generality, we assume $f$ is increasing. Choose a point $x_0 in [a, b]$.
-  In what follows, we only consider $x_0 in (a, b)$ since the proofs for $x_0 = a$ and $x_0 = b$ are
-  similar. Let $epsilon > 0$ be sufficiently small so that $f(x_0) plus.minus epsilon in [c, d]$.
-  Since $f$ is surjective, there exist $x_1, x_2 in [a, b]$ such that $f(x_1) = f(x_0) - epsilon$ and $f(x_2) = f(x_0) + epsilon$.
+  Without loss of generality, we assume $f$ is increasing. Choose a point $x_0 in [c, d]$.
+  In what follows, we only consider $x_0 in (c, d)$ since the proofs for $x_0 = c$ and $x_0 = d$ are
+  similar. Let $epsilon > 0$ be sufficiently small so that $f(x_0) plus.minus epsilon in [a, b]$.
+  Since $f$ is surjective, there exist $x_1, x_2 in [c, d]$ such that $f(x_1) = f(x_0) - epsilon$ and $f(x_2) = f(x_0) + epsilon$.
   Note that $x_1 < x_0 < x_2$. Let $delta = min(x_0 - x_1, x_2 - x_0)$. Then for
-  any $x in [a, b]$ such that $|x - x_0| < delta$, we have
+  any $x in [c, d]$ such that $|x - x_0| < delta$, we have
   $x_1 < x < x_2$. It then follows that
   $
     f(x_0) - epsilon = f(x_1) <= f(x) <= f(x_2) = f(x_0) + epsilon
@@ -220,10 +225,10 @@ A simple observation is that such function $g$ is continuous. See @prop:2.
   since $f$ is increasing. This proves that $f$ is continuous at $x_0$.
 ]
 
-If $gamma$ and $alpha$ are smooth curves, and they are equivalent via $g$, then
+If $z(t)$ and $w(s)$ are smooth curves, and they are equivalent via $g$, then
 apart from continuity, $g$ must enjoy some other nice properties.
 
-== Topology on the Complex Plane
+== Point-Set Topology
 
 Topology is the collection of all open subsets in a set.
 
@@ -252,18 +257,11 @@ simply write $X$ instead of $(X, cal(T))$.
   as the #index[discrete topology].
 ]
 
-The #index[open disk] of radius $r$ centered at $z_0$ is the set
-$
-  D(z_0, r) := { z in CC | |z - z_0| < r }
-$
-The #index[closed disk] of radius $r$ centered at $z_0$ is the set
-$
-  overline(D)(z_0, r) := { z in CC | |z - z_0| <= r }
-$
-
-The complex plane $CC$ is endowed with the #index[Euclidean topology]. A subset $Omega$ in $CC$ is
-open if and only if for every point $z in Omega$, there exists an open disk $D(z, r) subset.eq Omega$ for
-some $r > 0$.
+#definition[
+  Let $f: X -> Y$ be a function between two topological spaces. We say $f$ is
+  continuous if for any open set $U subset.eq Y$, its preimage $f^(-1)(U)$ is also
+  open in $X$.
+]
 
 #definition[
   Let $X$ be a topological space. A #index(entry: [separation of topological spaces])[separation] of $X$ is
@@ -321,6 +319,21 @@ topological subspace.
     The topologist's sine curve.
   ])<fig:4>
 ]
+
+== Topology on the Complex Plane
+
+The #index[open disk] of radius $r$ centered at $z_0$ is the set
+$
+  D(z_0, r) := { z in CC | |z - z_0| < r }
+$
+The #index[closed disk] of radius $r$ centered at $z_0$ is the set
+$
+  overline(D)(z_0, r) := { z in CC | |z - z_0| <= r }
+$
+
+The complex plane $CC$ is endowed with the #index[Euclidean topology]. A subset $Omega$ in $CC$ is
+open if and only if for every point $z in Omega$, there exists an open disk $D(z, r) subset.eq Omega$ for
+some $r > 0$.
 
 In complex analysis, because we will define the integration of a complex
 function along a curve, we are especially interested in the sets in which every
@@ -466,7 +479,66 @@ because all these three conditions about connectedness are equivalent.
 
 == Limits and Continuity
 
-#lorem(100)
+If $f$ is a real-valued continuous function defined on a closed interval $[a, b]$,
+then we know $f$ attains its maximum and minimum values there. Since we cannot
+compare complex numbers, we we cannot define the maximum and minimum values of a
+complex functions. But we can instead consider the modulus. Then an analogous
+result for complex functions holds, which says the modulus $|f|$ attains its
+maximum and minimum values on a compact set $K subset.eq CC$.
+
+In the following, we will prove a slightly more general result.
+
+#theorem[
+  Let $K$ be a compact topological space. If $f: K -> RR$ is continuous, then $f$ attains
+  its maximum and minimum values on $K$.
+]
+
+#proof[
+  We will only prove that $f$ attains its maximum value on $K$. The proof for the
+  minimum value of $f$ is similar. The general idea is as follows. We will first
+  show that $f$ is bounded on $K$, and hence it has a supremum $M$. And then we
+  will show that $f$ may take the value $M$.
+
+  *Proof of $f$ Being Bounded:* Consider a collection of open intervals in $RR$:
+  $
+    V_x = (f(x) - epsilon, f(x) + epsilon), quad x in K
+  $
+  where $epsilon > 0$ is a fixed positive number. Because $f$ is continuous, the
+  preimage $f^(-1)(V_x)$ is open in $K$. And we note that ${f^(-1)(V_x) | x in K}$ forms
+  an open cover for $K$. Then because $K$ is compact, there exists a finite
+  subcover, say ${f^(-1)(V_(x_j)) | j=1,...,k}$. We have
+  $
+          & K subset.eq union.big_(j=1)^k f^(-1)(V_(x_j)) \
+    ==> & x in union.big_(j=1)^k f^(-1)(V_(x_j)) quad forall x in K\
+    ==> & f(x) in union.big_(j=1)^k V_(x_j) quad forall x in K\
+    ==> & min_(1 <= j <= m) f(x_j) - epsilon < f(x) < max_(1 <= j <= m) f(x_j) + epsilon quad forall x in K
+  $
+  This shows that $f$ is bounded on $K$.
+
+  *Proof of That $f$ May Attain Its Supremum:* Since the range $f(K)$ is bounded
+  above, there exists a supremum $M$. We now show that $f(x_0) = M$ for some $x_0 in K$.
+  Consider a sequence of closed intervals in $RR$:
+  $
+    I_n = [M - 1/n, M], quad n in ZZ^+
+  $
+  The preimage $f^(-1)(I_n)$ is closed in $K$ since $f$ is continuous, which
+  further implies that $f^(-1)(I_n)$ is actually compact because it is a closed
+  subset of a compact space $K$. Note that
+  $
+    f^(-1)(I_1) supset.eq f^(-1)(I_2) supset.eq dots.c supset.eq f^(-1)(I_n) supset.eq ...
+  $
+  And each of them is nonempty since $M$ is the supremum of $f(K)$, which means
+  there always exists some $x_n in K$ such that $f(x_n) > M - 1/n$. Therefore, by
+  TODO, all theses compact preimages intersect at exactly one point, i.e.,
+  $
+    sect.big_(n=1)^oo f^(-1)(I_n) = {x_0}
+  $
+  Then, the value $f(x_0)$ satisfies
+  $
+    M - 1/n <= f(x_0) <= M quad forall n in ZZ^+
+  $
+  This implies $f(x_0) = M$. Therefore, $M$ is indeed the maximum value of $f$ on $K$.
+]
 
 == Holomorphic Functions
 
@@ -633,6 +705,60 @@ whose real part is the integral of $Re(f)$ and imaginary part is the integral of
   $
     integral_a^b f(x) dif x := integral_a^b Re[f(x)] dif x + i integral_a^b Im[f(x)] dif x
   $<eq:10>
+]<def:1>
+
+#theorem(
+  title: [Change of Variables],
+)[
+  Suppose $g: [c, d] -> RR$ has a continuous derivative $g'$ on $[c, d]$. Let $f$ be
+  a real-valued continuous function on $g([c, d])$. Let $F$ be defined by
+  $
+    F(x) = integral_(g(c))^x f(t) dif t, quad x in g([c, d])
+  $
+  Then, for each $x in [c, d]$, the integral $integral_c^x f(g(t)) g'(t) dif t$ exists
+  and has value $F(g(x))$, i.e.,
+  $
+    integral_c^x f(g(t)) g'(t) dif t = F(g(x)) quad forall x in [c, d]
+  $<eq:12>
+  In particular, putting $x = d$ in @eq:12, we obtain the change of variables
+  formula:
+  $
+    integral_(g(c))^g(d) f(x) dif x = integral_c^d f(g(t)) g'(t) dif t
+  $
+]<thm:1>
+
+#theorem(
+  title: [Change of Variables for Complex-Valued Functions],
+)[
+  Suppose $g: [c, d] -> RR$ has a continuous derivative $g'$ on $[c, d]$. Let $f$ be
+  a complex-valued continuous function on $g([c, d])$. Let $F$ be defined by
+  $
+    F(t) = integral_(g(c))^t f(x) dif x, quad t in g([c, d])
+  $
+  Then, for each $s in [c, d]$, the integral $integral_c^s f(g(x)) g'(x) dif x$ exists
+  and has value $F(g(s))$, i.e.,
+  $
+    F(g(s)) = integral_c^s f(g(x)) g'(x) dif x quad forall s in [c, d]
+  $<eq:13>
+  In particular, putting $s = d$ in @eq:13, we obtain the change of variables
+  formula:
+  $
+    integral_(g(c))^g(d) f(t) dif t = integral_c^d f(g(s)) g'(s) dif s
+  $
+]<thm:2>
+
+#proof[
+  By @def:1, we have
+  $
+    Re[F(t)] = integral_(g(c))^t Re[f(x)] dif x quad "and" quad
+    Im[F(t)] = integral_(g(c))^t Im[f(x)] dif x quad forall t in [c, d]
+  $
+  Apply @thm:1 to both $Re(f)$ and $Im(f)$, we have
+  $
+    Re[F(g(s))] &= integral_c^s Re[f(g(x))] g'(x) dif x quad forall s in [c, d] \
+    Im[F(g(s))] &= integral_c^s Im[f(g(x))] g'(x) dif x quad forall s in [c, d]
+  $
+  This yields @eq:13. The change of variables formula follows from @eq:13.
 ]
 
 Thanks to the parameterizations of curves, we can reduce the complex integral of
@@ -655,21 +781,83 @@ that the complex integral of a function along a curve is independent of the
 parameterization, which means the integral is indeed well-defined.
 
 Suppose $z: [a, b] -> CC$ and $w: [c, d] -> CC$ are two parameterizations of the
-same curve $gamma$, and they are equivalent via $g: [a, b] -> [c, d]$. We need
+same curve $gamma$, and they are equivalent via $g: [c, d] -> [a, b]$. We need
 to show
 $
-  integral_gamma f(z(t)) z'(t) dif t = integral_gamma f(w(s)) w'(s) dif s
+  integral_a^b f(z(t)) z'(t) dif t = integral_c^d f(w(s)) w'(s) dif s
 $
-We have
+Since $g$ has a continuous derivate on $[c, d]$, we may apply @thm:2. We have
 $
-  integral_gamma f(w(s)) w'(s) dif s &= integral_gamma f(w(g(t))) w'(g(t)) g'(t) dif t quad& \
-                                     &= integral_gamma f(w(g(t))) dif / (dif t) [ w(g(t)) ] dif t \
-                                     &= integral_gamma f(z(t)) z'(t) dif t                 &"since" z(t) = w(g(t))
+  integral_a^b f(z(t)) z'(t) dif t &= integral_g(c)^g(d) f(z(t)) z'(t) dif t \
+                                   &= integral_c^d f(z(g(s))) z'(g(s)) g'(s) dif s \
+                                   &= integral_c^d f(z(g(s))) dif / (dif s)[z(g(s))] dif s \
+                                   &= integral_c^d f(w(s)) dif / (dif s) w(s) dif s \
+                                   &= integral_c^d f(w(s)) w'(s) dif s
 $
-This proves $integral_gamma f(z) dif z$ is independent of the parameterization.
+This proves $integral_gamma f(z) dif z$ is independent of parameterizations.
+
+If $gamma$ is a piecewise smooth curve, then the integral of $f$ along $gamma$ is
+defined by the sum of the integrals of $f$ along each smooth piece of $gamma$.
+Formally, suppose $gamma = gamma_1 * dots.c * gamma_n$ where each $gamma_j$ is
+smooth. Then define
+$
+  integral_gamma f(z) dif z := sum_(j=1)^n integral_(gamma_j) f(z) dif z
+$
+
+The length of a smooth curve $gamma = z(t), space t in [a, b]$ is defined by
+$
+  len(gamma) := integral_a^b abs(z'(t)) dif t
+$<eq:14>
+#note[
+  The integral in @eq:14 exists because $abs(z'(t))$ is continuous on $[a, b]$.
+  The definition of length of a curve does not even require the knowledge of
+  complex integrals since $abs(z'(t))$ is a real-valued function. And one should
+  verify that @eq:14 is also independent of parameterizations.
+]
+Of course, the length of a piecewise smooth curve is defined by the sum of the
+length of each smooth piece.
+
+#proposition[
+  Complex integrals of continuous functions along curves satisfy the following
+  properties:
+  + If $alpha, beta in CC$, then
+    $
+      integral_gamma (alpha f(z) + beta g(z)) dif z = alpha integral_gamma f(z) dif z + beta integral_gamma g(z) dif z
+    $
+  + Let $gamma^-$ be the curve of $gamma$ with reverse orientation. Then
+    $
+      integral_(gamma^-) f(z) dif z = - integral_gamma f(z) dif z
+    $
+  + The modulus of the integral is bounded above and can be estimated using the
+    following inequality:
+    $
+      abs(integral_gamma f(z) dif z) <= sup_(z in gamma) abs(f(z)) len(gamma)
+    $
+]
+
+#proof[
+  We prove each property as follows.
+
+  *Proof of 1:* The first property is proved by applying the linearity of
+  integrals of the real and imaginary parts of $f$ on each smooth piece of $gamma$.
+
+  *Proof of 2:* It suffices to prove for the case that $gamma$ is smooth. Let $gamma = z(t), space t in [a, b]$.
+  Then $gamma^- = z(b + a - s), space s in [a, b]$. We have
+  $
+    integral_(gamma^-) f(z) dif z &= integral_a^b f(z(b+a-s)) 1 / (dif s) [z(b+a-s)] dif s \
+                                  &= integral_a^b f(z(b+a-s)) (-1) z'(b+a-s) dif s \
+                                  &= - integral_a^b f(z(b+a-s)) z'(b+a-s) dif s \
+                                  &"Apply change of variables" t = g(s) = b+a-s \
+                                  &= - integral_b^a f(z(t)) z'(t) dot (-1) dif t quad "Note" a "and" b "are switched"\
+                                  &= - integral_a^b f(z(t)) z'(t) dif t \
+                                  &= - integral_gamma f(z) dif z
+  $
+
+  *Proof of 3:*
+]
 
 // References
 #bibliography("complex-analysis.bib", title: "References")
 
 // Indices
-#make-index()
+#index-page()
