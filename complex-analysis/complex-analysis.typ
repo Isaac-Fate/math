@@ -11,6 +11,232 @@
 
 #outline()
 
+= Point-Set Topology
+
+The knowledge from topology is too important to be neglected. Before we start to
+study complex analysis, we shall first introduce some basic concepts in
+topology.
+
+== Topology
+
+Topology is the collection of all open subsets in a set.
+
+#definition[
+  A #index[topology] on a set $X$ is a collection $cal(T)$ of subsets of $X$ having
+  the following properties:
+  + $emptyset, X in cal(T)$.
+  + $cal(T)$ is closed under arbitrary unions, i.e., $U_alpha in cal(T) space forall alpha in I ==> union.big_(alpha in I) U_alpha in cal(T)$.
+  + $cal(T)$ is closed under finite intersections, i.e., $U_1, U_2 in cal(T) ==> U_1 sect U_2 in cal(T)$.
+]
+
+A set for which a topology has been specified is called a #index(entry: [topological spaces])[topological space],
+and is denoted by $(X, cal(T))$. If the topology is clear from the context, we
+simply write $X$ instead of $(X, cal(T))$.
+
+#example[
+  The only topology on the empty set $emptyset$ is the singleton $cal(T) = {emptyset}$.
+]
+
+#example[
+  For a set $X$, the topology containing only $emptyset$ and $X$ is called the #index[trivial topology].
+]
+
+#example[
+  The power set $cal(P)(X)$ of a set $X$ is a topology on $X$, and is referred to
+  as the #index[discrete topology].
+]
+
+== Continuous Functions
+
+#definition[
+  Let $f: X -> Y$ be a function between two topological spaces. We say $f$ is
+  continuous if for any open set $U subset.eq Y$, its preimage $f^(-1)(U)$ is also
+  open in $X$.
+]
+
+== Compact Spaces
+
+A collection $cal(A) = {A_alpha | alpha in I}$ of subsets in $X$ is said to #index(entry: [covering of a topological space])[cover] $X$,
+or to be a #index(entry: [covering of a topological space])[covering] or $X$, if
+the union $union.big_(alpha in I) A_alpha$ equals $X$.
+
+And a #index(entry: [subcovering of a topological space])[subcovering] $cal(A)'$ of $cal(A)$ is
+a subcollection of $cal(A)$ that also covers $X$.
+
+#definition[
+  A topological space $X$ is #index(entry: [compact topological spaces])[compact] if
+  every open covering of $X$ has a finite subcovering. Formally, if
+  $
+    X = union.big_(alpha in I) U_alpha
+  $
+  where each $U_alpha$ is open in $X$, then there exist $alpha_1, ..., alpha_k in I$ such
+  that
+  $
+    X = union.big_(j=1)^k U_(alpha_j)
+  $
+]
+
+If $Y$ is a subspace of $X$, to check whether $Y$ is compact, it is usually more
+convenient to consider the subsets in $X$ rather than those in $Y$.
+
+A collection $cal(A) = {A_alpha | alpha in I}$ of subsets in $X$ is said to
+cover subspace $Y$ if $Y subset.eq union.big_(alpha in I) A_alpha$.
+
+The following proposition states that a subspace $Y$ of $X$ is compact if and
+only if any open covering of $Y$ in $X$ has a finite subcovering.
+
+#proposition[
+  Let $Y$ be a subspace of $X$. Then $Y$ is compact if and only if every open
+  covering of $Y$ in $X$ has a finite subcovering.
+]
+
+#proof[
+  We prove each direction separately.
+
+  *Proof of $==>$:* Suppose $Y$ is compact. Let ${U_alpha | alpha in I}$ be an
+  open covering of $Y$ in $X$. Let $V_alpha = U_alpha sect Y, space alpha in I$.
+  Note that $V_alpha$ is open in $Y$. Then, due to the compactness of $Y$, there
+  exists a finite subset $J$ of the index set $I$, i.e., $J subset.eq I$ and $abs(J) < oo$,
+  such that
+  $
+    Y = union.big_(alpha in J) V_(alpha) = union.big_(alpha in J) (U_alpha sect Y) subset.eq union.big_(alpha in J) U_alpha
+  $
+  This shows that ${U_alpha | alpha in J}$ is a finite subcovering of $Y$.
+
+  *Proof of $<==$:* Suppose
+  $
+    Y = union.big_(alpha in I) V_alpha
+  $
+  where each $V_alpha$ is open in $Y$. There exists $U_alpha$ open in $X$ such
+  that $V_alpha = U_alpha sect Y$. Then, we have
+  $
+    Y = union.big_(alpha in I) V_alpha = union.big_(alpha in I) (U_alpha sect Y) subset.eq union.big_(alpha in I) U_alpha
+  $
+  By the given condition, there exists a finite subcovering ${U_alpha | alpha in J}$ of $Y$.
+  Consequently, $Y subset.eq union.big_(alpha in J) U_alpha$. It then follows that
+  $
+    Y = (union.big_(alpha in J) U_(alpha)) sect Y = union.big_(alpha in J) (U_alpha sect Y)
+    = union.big_(alpha in J) V_alpha
+  $
+  This proves that ${V_alpha | alpha in J}$ is a finite subcovering of $Y$, and
+  hence $Y$ is compact.
+]
+
+#theorem[
+  Let $X$ be a compact space. If subset $K subset.eq X$ is closed in $X$, then $K$ is
+  also compact.
+]<thm:3>
+
+Continuous functions preserve compactness.
+
+#theorem[
+  Let $f: X -> Y$ be a continuous function between two topological spaces. If
+  $X$ is compact, then $f(X)$ is also compact.
+]
+
+The preimage of a compact set under a continuous function is not necessarily
+compact.
+
+#example[
+  Consider the identity map $id: (a, b] -> RR$. It is continuous.
+]
+
+#proof[
+  Let ${V_alpha | alpha in I}$ be an open covering of $f(X)$ in $Y$. Then, we have $f(X) subset.eq union.big_(alpha in I) V_alpha$.
+  It follows that $X subset.eq union.big_(alpha in I) f^(-1)(V_alpha)$. Note that ${f^(-1)(V_alpha) | alpha in I}$ is
+  an open covering of $X$. Because $X$ is compact, there exists a finite
+  subcovering ${f^(-1)(V_alpha) | alpha in J}$ of $X$. Then, the image $f(X)$ can
+  be covered by ${V_alpha | alpha in J}$ of $f(X)$. This proves that $f(X)$ is
+  compact.
+]
+
+There is a criterion for a space to be compact formulated in terms of closed
+sets instead of open sets.
+
+A collection $cal(C) = {C_alpha | alpha in I}$ of closed subsets in $X$ is said
+to have the #index(entry: [finite intersection property])[finite intersection property] if
+every finite intersection is nonempty, i.e.,
+$
+  J subset.eq I "and" abs(J) < oo ==> sect.big_(alpha in J) C_alpha != emptyset
+$
+
+#theorem[
+  A topological space $X$ is compact if and only if every collection $cal(C) = {C_alpha | alpha in I}$ of
+  closed subsets in $X$ that has the finite intersection property also has a
+  nonempty intersection, i.e., $sect_(alpha in I) C_alpha != emptyset$.
+]<thm:4>
+
+#corollary[
+  Let $X$ be a compact Hausdorff metric space. If ${C_n}$ is a sequence of
+  nonempty closed subsets such that
+  $
+    C_1 supset.eq C_2 supset.eq dots.c supset.eq C_n supset.eq ...
+  $
+  and $lim_(n -> oo) diam(C_n) = 0$, then they intersect at exactly one point:
+  $
+    sect.big_(n = 1)^oo C_n = {x_0}
+  $
+]<cor:1>
+
+== Connected Spaces
+
+#definition[
+  Let $X$ be a topological space. A #index(entry: [separation of topological spaces])[separation] of $X$ is
+  a pair of open subsets $U$ and $V$ such that
+  + $U != emptyset$ and $V != emptyset$,
+  + $U sect V = emptyset$, and
+  + $X = U union V$.
+
+  The last two conditions are equivalent to saying that $X$ is contained in the
+  disjoint union of $U$ and $V$, i.e., $X subset.eq U union.sq V$.
+
+  If such a separation exists, we say $X$ is #index(entry: [disconnected topological spaces])[disconnected].
+  Otherwise, we say $X$ is #index(entry: [connected topological spaces])[connected].
+]
+
+#example[
+  The empty set $emptyset$ and the entire space $X$ are connected.
+]
+
+The following proposition gives a useful characterization of connectedness of a
+topological subspace.
+
+#proposition[
+  Let $Y subset.eq X$ be a _nonempty_ topological subspace of $X$. Then $Y$ is
+  disconnected if and only if there exist two open sets $U, V$ in $X$ such that
+  + $U != emptyset$ and $V != emptyset$,
+  + $U sect V = emptyset$, and
+  + $Y subset.eq U union V$.
+]
+
+#note[
+  We must rule out the case $Y = emptyset$ since $emptyset$ is connected.
+]
+
+#definition[
+  A topological space $X$ is #index(entry: [path-connected topological spaces])[path-connected] if
+  for any two points $x, y in X$, there exists a continuous function $p: [0, 1] -> X$ such
+  that $p(0) = x$ and $p(1) = y$.
+]
+
+#example[
+  The famous #index(entry: [topologist's sine curve])[topologist's sine curve] is
+  a connected but not path-connected topological space. It is the closure $overline(S)$ of
+  the set
+  $
+    S := { (x, sin 1/x) mid(|) x > 0 }
+  $
+  One can show that
+  $
+    overline(S) = { (x, sin 1/x) mid(|) x > 0 } union { (0, y) | y in [-1, 1] }
+  $
+  Its graph is shown in @fig:4.
+
+  #figure(image("./figures/topologist-sine-curve.svg", width: 60%), caption: [
+    The topologist's sine curve.
+  ])<fig:4>
+]
+
 = Complex Numbers and the Complex Plane
 
 == Algebraic Operations
@@ -228,98 +454,6 @@ A simple observation is that such function $g$ is continuous. See @prop:2.
 If $z(t)$ and $w(s)$ are smooth curves, and they are equivalent via $g$, then
 apart from continuity, $g$ must enjoy some other nice properties.
 
-== Point-Set Topology
-
-Topology is the collection of all open subsets in a set.
-
-#definition[
-  A #index[topology] on a set $X$ is a collection $cal(T)$ of subsets of $X$ having
-  the following properties:
-  + $emptyset, X in cal(T)$.
-  + $cal(T)$ is closed under arbitrary unions, i.e., $U_alpha in cal(T) space forall alpha in I ==> union.big_(alpha in I) U_alpha in cal(T)$.
-  + $cal(T)$ is closed under finite intersections, i.e., $U_1, U_2 in cal(T) ==> U_1 sect U_2 in cal(T)$.
-]
-
-A set for which a topology has been specified is called a #index(entry: [topological spaces])[topological space],
-and is denoted by $(X, cal(T))$. If the topology is clear from the context, we
-simply write $X$ instead of $(X, cal(T))$.
-
-#example[
-  The only topology on the empty set $emptyset$ is the singleton $cal(T) = {emptyset}$.
-]
-
-#example[
-  For a set $X$, the topology containing only $emptyset$ and $X$ is called the #index[trivial topology].
-]
-
-#example[
-  The power set $cal(P)(X)$ of a set $X$ is a topology on $X$, and is referred to
-  as the #index[discrete topology].
-]
-
-#definition[
-  Let $f: X -> Y$ be a function between two topological spaces. We say $f$ is
-  continuous if for any open set $U subset.eq Y$, its preimage $f^(-1)(U)$ is also
-  open in $X$.
-]
-
-#definition[
-  Let $X$ be a topological space. A #index(entry: [separation of topological spaces])[separation] of $X$ is
-  a pair of open subsets $U$ and $V$ such that
-  + $U != emptyset$ and $V != emptyset$,
-  + $U sect V = emptyset$, and
-  + $X = U union V$.
-
-  The last two conditions are equivalent to saying that $X$ is contained in the
-  disjoint union of $U$ and $V$, i.e., $X subset.eq U union.sq V$.
-
-  If such a separation exists, we say $X$ is #index(entry: [disconnected topological spaces])[disconnected].
-  Otherwise, we say $X$ is #index(entry: [connected topological spaces])[connected].
-]
-
-#example[
-  The empty set $emptyset$ and the entire space $X$ are connected.
-]
-
-The following proposition gives a useful characterization of connectedness of a
-topological subspace.
-
-#proposition[
-  Let $Y subset.eq X$ be a _nonempty_ topological subspace of $X$. Then $Y$ is
-  disconnected if and only if there exist two open sets $U, V$ in $X$ such that
-  + $U != emptyset$ and $V != emptyset$,
-  + $U sect V = emptyset$, and
-  + $Y subset.eq U union V$.
-]
-
-#note[
-  We must rule out the case $Y = emptyset$ since $emptyset$ is connected.
-]
-
-#definition[
-  A topological space $X$ is #index(entry: [path-connected topological spaces])[path-connected] if
-  for any two points $x, y in X$, there exists a continuous function $p: [0, 1] -> X$ such
-  that $p(0) = x$ and $p(1) = y$.
-]
-
-#example[
-  The famous #index(entry: [topologist's sine curve])[topologist's sine curve] is
-  a connected but not path-connected topological space. It is the closure $overline(S)$ of
-  the set
-  $
-    S := { (x, sin 1/x) mid(|) x > 0 }
-  $
-  One can show that
-  $
-    overline(S) = { (x, sin 1/x) mid(|) x > 0 } union { (0, y) | y in [-1, 1] }
-  $
-  Its graph is shown in @fig:4.
-
-  #figure(image("./figures/topologist-sine-curve.svg", width: 60%), caption: [
-    The topologist's sine curve.
-  ])<fig:4>
-]
-
 == Topology on the Complex Plane
 
 The #index[open disk] of radius $r$ centered at $z_0$ is the set
@@ -521,17 +655,16 @@ In the following, we will prove a slightly more general result.
   $
     I_n = [M - 1/n, M], quad n in ZZ^+
   $
-  The preimage $f^(-1)(I_n)$ is closed in $K$ since $f$ is continuous, which
-  further implies that $f^(-1)(I_n)$ is actually compact because it is a closed
-  subset of a compact space $K$. Note that
+  The preimage $f^(-1)(I_n)$ is closed in $K$ since $f$ is continuous. Note that
   $
     f^(-1)(I_1) supset.eq f^(-1)(I_2) supset.eq dots.c supset.eq f^(-1)(I_n) supset.eq ...
   $
   And each of them is nonempty since $M$ is the supremum of $f(K)$, which means
   there always exists some $x_n in K$ such that $f(x_n) > M - 1/n$. Therefore, by
-  TODO, all theses compact preimages intersect at exactly one point, i.e.,
+  @thm:4, the intersection of all theses closed preimages is nonempty. In other
+  words, there exists at least one $x_0 in X$ such that
   $
-    sect.big_(n=1)^oo f^(-1)(I_n) = {x_0}
+    x_0 in sect.big_(n=1)^oo f^(-1)(I_n)
   $
   Then, the value $f(x_0)$ satisfies
   $
@@ -831,7 +964,7 @@ length of each smooth piece.
   + The modulus of the integral is bounded above and can be estimated using the
     following inequality:
     $
-      abs(integral_gamma f(z) dif z) <= sup_(z in gamma) abs(f(z)) len(gamma)
+      abs(integral_gamma f(z) dif z) <= max_(z in gamma) abs(f(z)) len(gamma)
     $
 ]
 
