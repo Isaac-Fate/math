@@ -11,6 +11,77 @@
 
 #outline()
 
+= Set Theory
+
+== Preimages
+
+Let $f: X -> Y$ be a function between two sets. The #index[preimage] of a subset $S subset.eq Y$ under $f$,
+written $f^(-1)(S)$, is defined by
+$
+  f^(-1)(S) := {x in X | f(x) in S}
+$
+In other words,
+$
+  x in f^(-1)(S) <==> f(x) in S
+$
+
+#proposition[
+  Let $f: X -> Y$ be a function. We have the following properties:
+  + $f^(-1)(emptyset) = emptyset$ and $f^(-1)(Y) = X$.
+  + $f^(-1)(sect.big_alpha S_alpha) = sect.big_alpha f^(-1)(S_alpha)$.
+  + $f^(-1)(S^complement) = (f^(-1)(S))^complement$.
+  + $f^(-1)(S_1 without S_2) = f^(-1)(S_1) without f^(-1)(S_2)$.
+  + $f^(-1)(union.big_alpha S_alpha) = union.big_alpha f^(-1)(S_alpha)$.
+  + $f^(-1)(union.sq.big_alpha S_alpha) = union.sq.big_alpha f^(-1)(S_alpha)$.
+]
+
+#proof[
+  We prove each property separately.
+
+  *Proof of 1:* The first property is evident.
+
+  *Proof of 2:* We have
+  $
+    x in f^(-1)(sect.big_alpha S_alpha) &<==> f(x) in sect.big_alpha S_alpha\
+                                        &<==> f(x) in S_alpha, space forall alpha in I \
+                                        &<==> x in f^(-1)(S_alpha), space forall alpha in I\
+                                        &<==> x in sect.big_alpha f^(-1)(S_alpha)
+  $
+
+  *Proof of 3:* We have
+  $
+    x in f^(-1)(S^complement) &<==> f(x) in S^complement\
+                              &<==> f(x) in.not S\
+                              &<==> x in.not f^(-1)(S)\
+                              &<==> x in (f^(-1)(S))^complement
+  $
+
+  *Proof of 4:* By applying the second and third property, we have
+  $
+    f^(-1)(S_1 without S_2) &= f^(-1)(S_1 sect S_2^complement) \
+                            &= f^(-1)(S_1) sect f^(-1)(S_2^complement)
+                            &"by the second property" \
+                            &= f^(-1)(S_1) sect (f^(-1)(S_2))^complement
+                            &"by the third property" \
+                            &= f^(-1)(S_1) without f^(-1)(S_2)
+  $
+
+  *Proof of 5:* Again, we can prove this by applying the second and third
+  property:
+  $
+    f^(-1)(union.big_alpha S_alpha) &= f^(-1)(sect.big_alpha (S_alpha^complement))^complement\
+                                    &= (f^(-1)(sect.big_alpha S_alpha^complement))^complement
+                                    &"by the third property"\
+                                    &= (sect.big_alpha f^(-1)(S_alpha^complement))^complement
+                                    &"by the second property"\
+                                    &= union.big_alpha (f^(-1)(S_alpha^complement))^complement \
+                                    &= union.big_alpha f^(-1)(S_alpha)
+                                    &"by the third property"
+  $
+
+  *Proof of 6:* This is proved by the first, second and fifth property.
+]
+
 = Point-Set Topology
 
 The knowledge from topology is too important to be neglected. Before we start to
@@ -134,13 +205,6 @@ Continuous functions preserve compactness.
   $X$ is compact, then $f(X)$ is also compact.
 ]
 
-The preimage of a compact set under a continuous function is not necessarily
-compact.
-
-#example[
-  Consider the identity map $id: (a, b] -> RR$. It is continuous.
-]
-
 #proof[
   Let ${V_alpha | alpha in I}$ be an open covering of $f(X)$ in $Y$. Then, we have $f(X) subset.eq union.big_(alpha in I) V_alpha$.
   It follows that $X subset.eq union.big_(alpha in I) f^(-1)(V_alpha)$. Note that ${f^(-1)(V_alpha) | alpha in I}$ is
@@ -148,6 +212,14 @@ compact.
   subcovering ${f^(-1)(V_alpha) | alpha in J}$ of $X$. Then, the image $f(X)$ can
   be covered by ${V_alpha | alpha in J}$ of $f(X)$. This proves that $f(X)$ is
   compact.
+]
+
+The preimage of a compact set under a continuous function is not necessarily
+compact.
+
+#example[
+  Consider the identity map $id: (a, b] -> RR$. It is continuous. But the preimage $id^(-1)([a, b]) = (a, b]$ is
+  not compact.
 ]
 
 There is a criterion for a space to be compact formulated in terms of closed
@@ -202,15 +274,30 @@ The following proposition gives a useful characterization of connectedness of a
 topological subspace.
 
 #proposition[
-  Let $Y subset.eq X$ be a _nonempty_ topological subspace of $X$. Then $Y$ is
-  disconnected if and only if there exist two open sets $U, V$ in $X$ such that
-  + $U != emptyset$ and $V != emptyset$,
+  Let $Y subset.eq X$ be a topological subspace of $X$. Then $Y$ is disconnected
+  if and only if there exist two open sets $U, V$ in $X$ such that
+  + $U sect Y != emptyset$ and $V sect Y != emptyset$,
   + $U sect V = emptyset$, and
   + $Y subset.eq U union V$.
 ]
 
-#note[
-  We must rule out the case $Y = emptyset$ since $emptyset$ is connected.
+Continuous functions preserve connectedness.
+
+#theorem[
+  Let $f: X -> Y$ be a continuous function between two topological spaces. If
+  $X$ is connected, then $f(X)$ is also connected.
+]
+
+#proof[
+  Suppose $f(X) subset.eq V_1 union.sq V_2$ where $V_1$ and $V_2$ are open in $Y$ and $V_1 sect f(X) != emptyset$.
+  We want to show that $V_2 sect f(X) = emptyset$. Taking the preimage, we have
+  $
+    X subset.eq f^(-1)(V_1 union.sq V_2) = f^(-1)(V_1) union.sq f^(-1)(V_2)
+  $
+  Since $f$ is continuous, $f^(-1)(V_1)$ and $f^(-1)(V_2)$ are open in $X$.
+  Moreover, $f^(-1)(V_1) != emptyset$ since $V_1 sect f(X) != emptyset$. Because $X$ is
+  connected, we must have $f^(-1)(V_2) = emptyset$. This implies $V_2 sect f(X) = emptyset$ as
+  desired.
 ]
 
 #definition[
