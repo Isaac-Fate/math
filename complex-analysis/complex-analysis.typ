@@ -1,4 +1,4 @@
-#import "@local/booxtyp:0.0.2": *
+#import "@local/booxtyp:0.0.1": *
 
 #show: book
 
@@ -8,6 +8,13 @@
   authors: ("Isaac Fei",),
   bar-color: rgb(67, 118, 108),
 )
+
+#preface(
+  )[
+  This is a notebook for self-studying complex analysis. I mainly follow the
+  structure of the book _Complex Analysis_ by Stein and Shakarchi
+  @steinComplexAnalysis2003.
+]
 
 #outline()
 
@@ -988,7 +995,8 @@ a general complex function along a curve to the one like @eq:10.
   Let $gamma$ be a smooth curve parameterized by $z: [a, b] -> CC$, and $f$ a
   continuous function on $gamma$. Then the #index(
     entry: [complex integral of a function along a curve],
-  )[complex integral of $f$ along $gamma$] is defined by
+  )[complex integral of $f$ along $gamma$] or the #index[contour integral] is
+  defined by
   $
     integral_gamma f(z) dif z := integral_a^b f(z(t)) z'(t) dif t
   $<eq:11>
@@ -1124,7 +1132,35 @@ respectively.
   $
 ]
 
-#theorem(title: [Fundamental Theorem of Calculus for Contour Integration])[]
+A #index[primitive] for $f$ in an open set $Omega$ is a function $F$ such that $F$ is
+holomorphic in $Omega$ and $F'(z) = f(z) space forall z in Omega$. This term is
+an analogy to the antiderivative for real functions.
+
+#theorem(
+  title: [Second Fundamental Theorem of Calculus],
+)[
+  Suppose $f: [a, b] -> RR$ is Riemann integrable on $[a, b]$. Let function $F$ be
+  defined on $[a, b]$ such that its derivate $F'$ also exists on $[a, b]$ and
+  $
+    F'(x) = f(x) quad forall x in [a, b]
+  $
+  Then we have
+  $
+    integral_a^b f(x) dif x = F(b) - F(a)
+  $
+]
+
+#theorem(
+  title: [Second Fundamental Theorem of Calculus for Contour Integration],
+)[
+  Suppose $f: Omega -> CC$ is continuous and has a primitive $F$ in $Omega$. Let $gamma$ be
+  a curve in $Omega$ that starts at $z_0$ and ends at $z_1$. Then
+  $
+    integral_gamma f(z) dif z = F(z_1) - F(z_0)
+  $
+]
+
+#proof[]
 
 // References
 #bibliography("complex-analysis.bib", title: "References")
