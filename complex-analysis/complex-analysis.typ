@@ -712,7 +712,7 @@ In the following, we will prove a slightly more general result.
 #theorem[
   Let $K$ be a compact topological space. If $f: K -> RR$ is continuous, then $f$ attains
   its maximum and minimum values on $K$.
-]
+]<thm:5>
 
 #proof[
   We will only prove that $f$ attains its maximum value on $K$. The proof for the
@@ -1048,11 +1048,6 @@ length of each smooth piece.
     $
       integral_(gamma^-) f(z) dif z = - integral_gamma f(z) dif z
     $
-  + The modulus of the integral is bounded above and can be estimated using the
-    following inequality:
-    $
-      abs(integral_gamma f(z) dif z) <= max_(z in gamma) abs(f(z)) len(gamma)
-    $
 ]
 
 #proof[
@@ -1072,9 +1067,64 @@ length of each smooth piece.
                                   &= - integral_a^b f(z(t)) z'(t) dif t \
                                   &= - integral_gamma f(z) dif z
   $
-
-  *Proof of 3:*
 ]
+
+In many proofs, it is useful to find an upper bound for the quantity $abs(integral_gamma f(z) dif z)$.
+Intuitively, it should be bounded by the maximum value of $abs(f(z))$ on $gamma$ times
+the length of $gamma$.
+
+#proposition(
+  title: [ML Inequality],
+)[
+  Let $f$ be a continuous function defined on a curve $gamma$. Then
+  $
+    abs(integral_gamma f(z) dif z) <= max_(z in gamma) abs(f(z)) len(gamma)
+  $<eq:16>
+]
+
+Inequality @eq:16 is known as the #index(entry: [ML inequality])[ML inequality],
+in which _M_ and _L_ stand for the _Maximum_ _Modulus_ of $f$ on $gamma$ and the _Length_ of $gamma$,
+respectively.
+
+#proof[
+  We will first prove the proposition for the case that $gamma$ is smooth, and
+  then extend it to the case that $gamma$ is piecewise smooth.
+
+  *Proof for the Smooth Curves:*
+  Assume $gamma$ is smooth. Let $gamma = z(t), space t in [a, b]$. Then we have
+  $
+    abs(integral_gamma f(z) dif z) &= abs(integral_a^b f(z(t)) z'(t) dif t) \
+                                   &<= integral_a^b abs(f(z(t))) abs(z'(t)) dif t
+  $<eq:15>
+  Because and $abs(f(z(t)))$ a real-valued continuous function on $[a, b]$ and $[a, b]$ is
+  compact, by @thm:5, $abs(f(z(t)))$ attains its maximum value $M = max_(t in [a, b]) abs(f(z(t)))$ on $[a, b]$.
+  Applying the same argument to $abs(f(z))$ on $gamma$, we find that $abs(f(z))$ attains
+  its maximum value $M' = max_(z in gamma) abs(f(z))$ on $gamma$. In fact, $M = M'$.
+
+  Then the right-hand side of @eq:15 can be further bounded by
+  $
+    integral_a^b abs(f(z(t))) abs(z'(t)) dif t &<= integral_a^b M abs(z'(t)) dif t \
+                                               &= M integral_a^b abs(z'(t)) dif t \
+                                               &= M len(gamma)
+                                               &"by definition of length of a curve"
+  $
+  This proves the proposition for smooth curves.
+
+  *Proof for the Piecewise Smooth Curves:* Suppose $gamma = gamma_1 + dots.c + gamma_n$ where
+  each $gamma_j$ is smooth. Then
+  $
+    abs(integral_gamma f(z) dif z) &= abs(integral_(gamma_1 + dots.c + gamma_n) f(z) dif z) \
+                                   &= abs(integral_(gamma_1) f(z) dif z + dots.c + integral_(gamma_n) f(z) dif z) \
+                                   &<= abs(integral_(gamma_1) f(z) dif z) + dots.c + abs(integral_(gamma_n) f(z) dif z) \
+                                   &"Apply the ML inequality to each smooth piece" \
+                                   &<= max_(z in gamma_1) abs(f(z)) len(gamma_1) + dots.c + max_(z in gamma_n) abs(f(z)) len(gamma_n) \
+                                   &"Pick the greatest value among all max's"\
+                                   &= max_(z in gamma) abs(f(z)) (len(gamma_1) + dots.c + len(gamma_n) )\
+                                   &= max_(z in gamma) abs(f(z)) len(gamma)
+  $
+]
+
+#theorem(title: [Fundamental Theorem of Calculus for Contour Integration])[]
 
 // References
 #bibliography("complex-analysis.bib", title: "References")
