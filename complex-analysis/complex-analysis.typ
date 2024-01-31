@@ -1148,7 +1148,7 @@ an analogy to the antiderivative for real functions.
   $
     integral_a^b f(x) dif x = F(b) - F(a)
   $
-]
+]<thm:6>
 
 #theorem(
   title: [Second Fundamental Theorem of Calculus for Contour Integration],
@@ -1160,7 +1160,49 @@ an analogy to the antiderivative for real functions.
   $
 ]
 
-#proof[]
+#proof[
+  As usual, we first prove the theorem assuming $gamma$ is smooth, and then extend
+  it piecewise smooth curves.
+
+  *Proof for the Smooth Curves:* Let $gamma = z(t), space t in [a, b]$. The
+  function $F(z(t))$ has a derivate on $[a, b]$ by the chain rule since $z$ is
+  differentiable on $[a, b]$, and $F$ is holomorphic ar each point $z(t)$.
+  Moreover, the derivative of $F(z(t))$ is given by
+  $
+    dif / (dif t) F(z(t)) = F'(z(t)) z'(t) = f(z(t)) z'(t)
+  $<eq:17>
+  Note that $f(z(t)) z'(t)$ is continuous on $[a, b]$. Consequently, both its real
+  and imaginary parts are also continuous, and hence Riemann integrable on $[a, b]$.
+  Notice also that since the functions involved in @eq:17 are functions of a real
+  variable $t$, we have
+  $
+    Re[f(z(t)) z'(t)] &= Re[ dif / (dif t) F(z(t)) ] = dif / (dif t) Re[F(z(t))]\
+    Im[f(z(t)) z'(t)] &= Im[ dif / (dif t) F(z(t)) ] = dif / (dif t) Im[F(z(t))]
+  $
+
+  Then, we may apply @thm:6 to both $Re[f(z(t)) z'(t)]$ and $Im[f(z(t)) z'(t)]$:
+  $
+    integral_a^b Re[f(z(t)) z'(t)] dif t &= Re[F(z(b))] - Re[F(z(a))]
+    = Re[F(z_1) - F(z_0)] \
+    integral_a^b Im[f(z(t)) z'(t)] dif t &= Im[F(z(b))] - Im[F(z(a))]
+    = Im[F(z_1) - F(z_0)]
+  $
+  Adding the two equations above, we obtain
+  $
+    integral_gamma f(z) dif z = integral_a^b f(z(t)) z'(t) dif t = F(z_1) - F(z_0)
+  $
+
+  *Proof for the Piecewise Smooth Curves:* Suppose $gamma = gamma_1 + dots.c + gamma_n$ where
+  each $gamma_j$ is smooth, and $gamma_j$ starts at $w_(j-1)$ and ends at $w_j$ ($w_0 = z_0$ and $w_n = z_1$).
+  Then
+  $
+    integral_gamma f(z) dif z &= integral_(gamma_1) f(z) dif z + dots.c + integral_(gamma_n) f(z) dif z \
+                              &"Apply this theorem to each smooth piece" \
+                              &= sum_(j=1)^n (F(w_j) - F(w_(j-1))) \
+                              &= F(w_n) - F(w_0)\
+                              &= F(z_1) - F(z_0)
+  $
+]
 
 // References
 #bibliography("complex-analysis.bib", title: "References")
