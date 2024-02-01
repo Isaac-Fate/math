@@ -1240,7 +1240,7 @@ the contour integral will be zero.
   $
     integral_gamma f(z) dif z = 0
   $
-]
+]<cor:2>
 
 #proof[
   Let $gamma$ be parameterized by $z: [a, b] -> CC$ ($z(a) = z(b)$). (Note that $z(t)$ is
@@ -1277,6 +1277,33 @@ the contour integral will be zero.
     = 0
   $
   Therefore, $f(z) = f(z_0)$ for all $z in Omega$. This proves $f$ is constant.
+]
+
+= Cauchy's Theorem and Its Applications
+
+== Goursat's Theorem
+
+Recall in previous chapter, we have seen in @cor:2 that if $f$ has a primitive
+in an open set containing a closed curve $gamma$, then
+$
+  integral_gamma f(z) dif z = 0
+$
+Now, assuming $f$ is holomorphic, we want to show that $f$ has a primitive in
+some open set, and hence conclude that the integral of $f$ along any closed
+curve in that open set is zero. We shall start from #index[Goursat's theorem].
+
+#theorem(
+  title: [Goursat's Theorem],
+)[
+  Let $Omega subset.eq CC$ be a open set and $T subset.eq Omega$ a triangle whose
+  interior is also contained in $Omega$. If $f$ is holomorphic in $Omega$, then
+  $
+    integral_T f(z) dif z = 0
+  $
+]
+
+#proof[
+
 ]
 
 // References

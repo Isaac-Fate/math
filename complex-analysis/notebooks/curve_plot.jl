@@ -3,7 +3,7 @@ using LaTeXStrings
 
 function plot_curve!(
     plotobj::Plots.Plot,
-    γ,
+    z,
     a::Real,
     b::Real;
     step_size::Real=0.01,
@@ -11,6 +11,7 @@ function plot_curve!(
     δ::Real=1e-3,
     color::Union{RGB,Symbol}=:black,
     linewidth::Int=1,
+    linestyle::Symbol=:solid,
     label::Union{AbstractString,Nothing}=nothing,
 )::Plots.Plot where {T<:Real}
     # Create a range of values for t
@@ -24,12 +25,13 @@ function plot_curve!(
     # Plot the curve
     plot!(
         plotobj,
-        real(γ.(t)),
-        imag(γ.(t)),
+        real(z.(t)),
+        imag(z.(t)),
         color=color,
         xlabel=L"\mathrm{Re}(z)",
         ylabel=L"\mathrm{Im}(z)",
         linewidth=linewidth,
+        linestyle=linestyle,
         label=label,
     )
 
@@ -41,11 +43,11 @@ function plot_curve!(
     # Plot the arrows in the direction of the curve
     for t in arrow_points
         quiver!(
-            [real(γ(t))],
-            [imag(γ(t))],
+            [real(z(t))],
+            [imag(z(t))],
             quiver=(
-                [real(γ(t + δ) - γ(t))],
-                [imag(γ(t + δ) - γ(t))],
+                [real(z(t + δ) - z(t))],
+                [imag(z(t + δ) - z(t))],
             ),
             color=color,
             linewidth=linewidth,
@@ -56,7 +58,7 @@ function plot_curve!(
 end
 
 function plot_curve!(
-    γ,
+    z,
     a::Real,
     b::Real;
     step_size::Real=0.01,
@@ -64,6 +66,7 @@ function plot_curve!(
     δ::Real=1e-3,
     color::Union{RGB,Symbol}=:black,
     linewidth::Int=1,
+    linestyle::Symbol=:solid,
     label::Union{AbstractString,Nothing}=nothing,
 )::Plots.Plot where {T<:Real}
     # Get the current plot object
@@ -72,7 +75,7 @@ function plot_curve!(
     # Plot in the current plot object
     plot_curve!(
         plotobj,
-        γ,
+        z,
         a,
         b,
         step_size=step_size,
@@ -80,12 +83,13 @@ function plot_curve!(
         δ=δ,
         color=color,
         linewidth=linewidth,
+        linestyle=linestyle,
         label=label,
     )
 end
 
 function plot_curve(
-    γ,
+    z,
     a::Real,
     b::Real;
     step_size::Real=0.01,
@@ -93,6 +97,7 @@ function plot_curve(
     δ::Real=1e-3,
     color::Union{RGB,Symbol}=:black,
     linewidth::Int=1,
+    linestyle::Symbol=:solid,
     label::Union{AbstractString,Nothing}=nothing,
 )::Plots.Plot where {T<:Real}
     # Create a new plot object
@@ -101,7 +106,7 @@ function plot_curve(
     # Plot in the current plot object
     plot_curve!(
         plotobj,
-        γ,
+        z,
         a,
         b,
         step_size=step_size,
@@ -109,6 +114,7 @@ function plot_curve(
         δ=δ,
         color=color,
         linewidth=linewidth,
+        linestyle=linestyle,
         label=label,
     )
 end
