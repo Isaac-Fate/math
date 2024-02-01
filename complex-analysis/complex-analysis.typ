@@ -584,7 +584,7 @@ because all these three conditions about connectedness are equivalent.
   + $Omega$ is connected.
   + $Omega$ is path-connected.
   + $Omega$ is curve-connected.
-]
+]<thm:8>
 
 #proof[
   We prove 1 $==>$ 3 $==>$ 2 $==>$ 1.
@@ -920,7 +920,7 @@ $
 $<eq:7>
 When $z in RR$, @eq:7 reduces to @eq:8.
 
-== Complex Integration along Curves
+== Contour Integration
 
 Think about how to integrate a complex-valued function $f$ of a real variable $x$ on
 a closed interval $[a, b]$. Naturally, the result should be a complex number
@@ -1140,15 +1140,42 @@ an analogy to the antiderivative for real functions.
   title: [Second Fundamental Theorem of Calculus],
 )[
   Suppose $f: [a, b] -> RR$ is Riemann integrable on $[a, b]$. Let function $F$ be
-  defined on $[a, b]$ such that its derivate $F'$ also exists on $[a, b]$ and
+  defined on $[a, b]$ such that its derivate $F'$ exists in $(a, b)$ and
   $
-    F'(x) = f(x) quad forall x in [a, b]
+    F'(x) = f(x) quad forall x in (a, b)
   $
-  Then we have
+  Moreover, we assume at the endpoints $a$ and $b$, the one-sided derivatives of $F$, $F(a+)$ and $F(b-)$,
+  both exist (as finite numbers). Then we have
   $
-    integral_a^b f(x) dif x = F(b) - F(a)
-  $
+    integral_a^b f(x) dif x = F(b-) - F(a+)
+  $<eq:18>
 ]<thm:6>
+
+Equation @eq:18 might not be the one the reader might be familiar with. The
+usual one is
+$
+  integral_a^b f(x) dif x = F(b) - F(a)
+$
+We will use the following example to show why we need to consider the one-sided
+limits of $F$.
+
+#example[
+  Let
+  $
+    f(x) = cases(2x sin(1/x) - cos(1/x) quad &x != 0, 0 &x = 0) space, quad x in [0, 2/pi]
+  $
+  and
+  $
+    F(x) = cases(x^2 sin(1/x) quad &x != 0, c &x = 0) space, quad x in [0, 2/pi]
+  $
+  where $c$ is some constant. Note that $F'(x) = f(x) space forall x in (0, 2/pi)$.
+  Hence, by @thm:6, we have
+  $
+    integral_0^(2/pi) f(x) dif x = F(2/pi-) - F(0+) = F(2/pi) - F(0+) = 4/pi^2 - 0 = 4/pi^2
+  $
+  In fact, the value $F(0) = c$ does not affect the integral since in the
+  computation, we used the right-hand limit $F(0+)$ instead of $F(0)$.
+]
 
 #theorem(
   title: [Second Fundamental Theorem of Calculus for Contour Integration],
@@ -1158,7 +1185,7 @@ an analogy to the antiderivative for real functions.
   $
     integral_gamma f(z) dif z = F(z_1) - F(z_0)
   $
-]
+]<thm:7>
 
 #proof[
   As usual, we first prove the theorem assuming $gamma$ is smooth, and then extend
@@ -1202,6 +1229,54 @@ an analogy to the antiderivative for real functions.
                               &= F(w_n) - F(w_0)\
                               &= F(z_1) - F(z_0)
   $
+]
+
+An immediate consequence of @thm:7 is that if $gamma$ is a closed curve, then
+the contour integral will be zero.
+
+#corollary[
+  Let $f: Omega -> CC$ be a continuous function that has a primitive $F$ in $Omega$.
+  If a curve $gamma$ in $Omega$ is closed, then
+  $
+    integral_gamma f(z) dif z = 0
+  $
+]
+
+#proof[
+  Let $gamma$ be parameterized by $z: [a, b] -> CC$ ($z(a) = z(b)$). (Note that $z(t)$ is
+  not necessarily continuously differentiable on $[a, b]$ since $gamma$ may be
+  only piecewise smooth.) We can split $gamma$ into two pieces. Let $alpha = z(t), space t in [a, (a+b)/2]$ and $beta = z(t), space t in [(a+b)/2, b]$.
+  Suppose $z_0 = z(a) = z(b)$ and $z_1 = z((a+b)/2)$. We have $gamma = alpha + beta$.
+  Note that curves $alpha$ and $beta^-$ both start at $z_0$ and end at $z_1$.
+  Therefore, by @thm:7, we have
+  $
+    integral_gamma f(z) dif z &= integral_alpha f(z) dif z + integral_beta f(z) dif z \
+                              &= integral_alpha f(z) dif z - integral_(beta^-) f(z) dif z \
+                              &= (F(z_1) - F(z_0)) - (F(z_1) - F(z_0)) \
+                              &= 0
+  $
+]
+
+#corollary[
+  If $f$ is holomorphic in a connected open set $Omega$ and $f' = 0$, then $f$ is
+  constant.
+]
+
+#proof[
+  Pick a point $z_0 in Omega$. Because $Omega$ is connected, by @thm:8, there
+  exits a curve $gamma$ from $z_0$ to $z$ for any $z in Omega$. Since $f' = 0$ is
+  continuous, and $f$ is its primitive, @thm:7 is applicable. Integrating $f'$ along $gamma$,
+  we have
+  $
+    integral_gamma f'(z) dif z = f(z) - f(z_0)
+  $
+  Meanwhile,
+  $
+    integral_gamma f'(z) dif z = integral_a^b f'(z) z'(t) dif t
+    = integral_a^b 0 dot z'(t) dif t
+    = 0
+  $
+  Therefore, $f(z) = f(z_0)$ for all $z in Omega$. This proves $f$ is constant.
 ]
 
 // References
