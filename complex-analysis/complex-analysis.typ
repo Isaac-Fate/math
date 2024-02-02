@@ -734,7 +734,7 @@ In the following, we will prove a slightly more general result.
   where $epsilon > 0$ is a fixed positive number. Because $f$ is continuous, the
   preimage $f^(-1)(V_x)$ is open in $K$. And we note that ${f^(-1)(V_x) | x in K}$ forms
   an open cover for $K$. Then because $K$ is compact, there exists a finite
-  subcover, say ${f^(-1)(V_(x_j)) | j=1,...,k}$. We have
+  subcovering, say ${f^(-1)(V_(x_j)) | j=1,...,k}$. We have
   $
           & K subset.eq union.big_(j=1)^k f^(-1)(V_(x_j)) \
     ==> & x in union.big_(j=1)^k f^(-1)(V_(x_j)) quad forall x in K\
