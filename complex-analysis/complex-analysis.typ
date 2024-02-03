@@ -1303,7 +1303,101 @@ curve in that open set is zero. We shall start from #index[Goursat's theorem].
 ]
 
 #proof[
+  Let $T^(0)$ denote the original triangle $T$, and let $d_0$ and $p_0$ denote the
+  diameter and perimeter of $T^(0)$, respectively. We will divide this triangle
+  into four smaller triangles, $T^(1)_1$, $T^(1)_2$, $T^(1)_3$, and $T^(1)_4$.
+  This is done by bisecting each side of $T^(0)$, and then connecting the
+  midpoints. The construction is illustrated in @fig:3. Note that each small
+  triangle $T^(1)_j$ is positively oriented and has half the diameter and half the
+  perimeter of $T^(0)$, i.e, $d_1 = 1/2 d_0$ and $p_1 = 1/2 p_0$. More
+  importantly, we have
+  $
+    integral_(T^(0)) f(z) dif z = sum_(j=1)^4 integral_(T^(1)_j) f(z) dif z
+  $<eq:19>
+  In the big picture, we want to estimate an upper bound of the modulus of the
+  contour integral on the left-hand side of @eq:19. And then we will show that
+  that upper bound will tend to zero. Taking the modulus on both sides of @eq:19,
+  we have
+  $
+    abs(integral_(T^(0)) f(z) dif z) = abs(sum_(j=1)^4 integral_(T^(1)_j) f(z) dif z)
+    <= sum_(j=1)^4 abs(integral_(T^(1)_j) f(z) dif z)
+    <= 4 abs(integral_(T^(1)_(j_1)) f(z) dif z)
+  $
+  where $abs(integral_(T^(1)_(j_1)) f(z) dif z)$ is the maximum value among all
+  four moduli of integrals.
 
+  Now, we can further divide the triangle $T^(1)_(j_1)$ in a similar fashion to
+  obtain four even smaller triangles, and then further bound the value of $abs(integral_(T^(1)_(j_1)) f(z) dif z)$.
+  Repeat this process for $n$ times, we will have a sequence of triangles, ${T^n_(j_n)}$ with
+  $
+    d_n = (1/2)^n d_0 quad "and" quad p_n = (1/2)^n p_0 quad forall n in ZZ^+
+  $
+  And we have the following inequality:
+  $
+    abs(integral_(T^(0)) f(z) dif z) <= 4^n abs(integral_(T^n_(j_n)) f(z) dif z)
+  $<eq:20>
+  We want to show that the right-hand side of @eq:20 tends to zero as $n -> oo$.
+
+  #note[
+    It is appealing to apply the ML inequality directly to $integral_(T^n_(j_n)) f(z) dif z$.
+    Though the length of the triangle tends to zero, it is still $1/2^n p_0$, which
+    is not enough to cancel $4^n$ on the right-hand side of @eq:20. Hence, we need
+    to further exploit the fact that $f$ is holomorphic by estimating $f(z)$ about
+    some point $z_0$.
+  ]
+
+  Let $cal(T)^n$ denote solid the union of the triangle $T^n$ and its interior. In
+  other words, it is the solid triangle. Clearly we have
+  $
+    cal(T^0) supset.eq cal(T^1) supset.eq dots.c supset.eq cal(T^n) supset.eq dots.c
+  $
+  and the diameter $diam cal(T)^n = diam T^n = d_n$ tends to zero as $n -> oo$ since $d_n = (1/2)^n d_0$.
+  Therefore, by @cor:1, these solid triangles intersect at a single point, say $z_0$,
+  i.e, $sect.big_(n=0)^oo cal(T^n) = {z_0}$.
+
+  We now estimate $f(z)$ about point $z_0$. Because $f$ is holomorphic at $z_0$,
+  we can write
+  $
+    f(z) = f(z_0) + f'(z_0) (z - z_0) + psi(z) (z - z_0), quad z != z_0
+  $<eq:21>
+  where $psi(z)$ is a continuous function, and
+  $
+    lim_(z -> z_0) psi(z) = 0
+  $
+  Observe the right-hand side of @eq:21. We note that the function defined by the
+  sum of the first two term
+  $
+    g(z) = f(z_0) + f'(z_0) (z - z_0)
+  $
+  has a primitive
+  $
+    G(z) = f(z_0) (z - z_0) + 1/2 f'(z_0) (z - z_0)^2
+  $
+  Therefore, by @thm:7, the contour integral of $g$ along the triangle $T^n_(j_n)$ is
+  zero. It then follows that
+  $
+    integral_(T^n_(j_n)) f(z_0) dif z &= integral_(T^n_(j_n)) f(z_0) + f'(z_0) (z - z_0) + psi(z) (z - z_0) dif z \
+                                      &= integral_(T^n_(j_n)) f(z_0) + f'(z_0) (z - z_0) dif z + integral_(T^n_(j_n)) psi(z) (z - z_0) dif z \
+                                      &= integral_(T^n_(j_n)) psi(z) (z - z_0) dif z \
+  $<eq:22>
+  Applying the ML inequality to the last integral, we have
+  $
+    abs(integral_(T^n_(j_n)) psi(z) (z - z_0) dif z)
+      &<= max_(z in T^n_(j_n)) abs(psi(z)(z - z_0)) p_n \
+      &"Note that" abs(z - z_0) <= d_n space forall z in T^n_(j_n) \
+      &<= max_(z in T^n_(j_n)) abs(psi(z)) d_n p_n \
+      &"To ease the notation, let" epsilon_n = max_(z in T^n_(j_n)) abs(psi(z)) \
+      &= epsilon_n d_n p_n \
+      &= 1/4^n epsilon_n d_0 p_0
+  $<eq:23>
+
+  Combining @eq:20, @eq:22, and @eq:23, we have
+  $
+    abs(integral_(T) f(z) dif z) <= 4^n abs(integral_(T^n_(j_n)) f(z) dif z) <= epsilon_n d_0 p_0
+  $<eq:24>
+  Since $psi(z) -> 0$ as $z -> z_0$, we have $epsilon_n -> 0$ as $n -> oo$. Let $n -> oo$ at
+  both sides of @eq:24, we have $integral_(T) f(z) dif z = 0$. This completes the
+  proof.
 ]
 
 // References
