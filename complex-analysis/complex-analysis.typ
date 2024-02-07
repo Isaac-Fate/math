@@ -1300,17 +1300,28 @@ curve in that open set is zero. We shall start from #index[Goursat's theorem].
   $
     integral_T f(z) dif z = 0
   $
-]
+]<thm:9>
+
+We could state and prove Goursat's Theorem considering the counter integral
+along a rectangle. But we will see in @cor:3 that the rectangle version is an
+immediate corollary of this triangle version since we can divide a rectangle
+into two triangles.
 
 #proof[
   Let $T^(0)$ denote the original triangle $T$, and let $d_0$ and $p_0$ denote the
   diameter and perimeter of $T^(0)$, respectively. We will divide this triangle
   into four smaller triangles, $T^(1)_1$, $T^(1)_2$, $T^(1)_3$, and $T^(1)_4$.
   This is done by bisecting each side of $T^(0)$, and then connecting the
-  midpoints. The construction is illustrated in @fig:3. Note that each small
-  triangle $T^(1)_j$ is positively oriented and has half the diameter and half the
-  perimeter of $T^(0)$, i.e, $d_1 = 1/2 d_0$ and $p_1 = 1/2 p_0$. More
-  importantly, we have
+  midpoints. The construction is illustrated in @fig:5.
+
+  #figure(
+    image("./figures/dividing-into-4-triangles.svg", width: 60%),
+    caption: [Dividing triangle $T$ into four smaller triangles.],
+  )<fig:5>
+
+  Note that each small triangle $T^(1)_j$ is positively oriented and has half the
+  diameter and half the perimeter of $T^(0)$, i.e, $d_1 = 1/2 d_0$ and $p_1 = 1/2 p_0$.
+  More importantly, we have
   $
     integral_(T^(0)) f(z) dif z = sum_(j=1)^4 integral_(T^(1)_j) f(z) dif z
   $<eq:19>
@@ -1330,7 +1341,7 @@ curve in that open set is zero. We shall start from #index[Goursat's theorem].
   obtain four even smaller triangles, and then further bound the value of $abs(integral_(T^(1)_(j_1)) f(z) dif z)$.
   Repeat this process for $n$ times, we will have a sequence of triangles, ${T^n_(j_n)}$ with
   $
-    d_n = (1/2)^n d_0 quad "and" quad p_n = (1/2)^n p_0 quad forall n in ZZ^+
+    d_n = 1 / 2^n d_0 quad "and" quad p_n = 1 / 2^n p_0 quad forall n in ZZ^+
   $
   And we have the following inequality:
   $
@@ -1351,7 +1362,7 @@ curve in that open set is zero. We shall start from #index[Goursat's theorem].
   $
     cal(T^0) supset.eq cal(T^1) supset.eq dots.c supset.eq cal(T^n) supset.eq dots.c
   $
-  and the diameter $diam cal(T)^n = diam T^n = d_n$ tends to zero as $n -> oo$ since $d_n = (1/2)^n d_0$.
+  and the diameter $diam cal(T)^n = diam T^n = d_n$ tends to zero as $n -> oo$ since $d_n = 1 / 2^n d_0$.
   Therefore, by @cor:1, these solid triangles intersect at a single point, say $z_0$,
   i.e, $sect.big_(n=0)^oo cal(T^n) = {z_0}$.
 
@@ -1398,6 +1409,97 @@ curve in that open set is zero. We shall start from #index[Goursat's theorem].
   Since $psi(z) -> 0$ as $z -> z_0$, we have $epsilon_n -> 0$ as $n -> oo$. Let $n -> oo$ at
   both sides of @eq:24, we have $integral_(T) f(z) dif z = 0$. This completes the
   proof.
+]
+
+#corollary[
+  If $f$ is holomorphic in an open set $Omega$ containing a rectangle $R$ and its
+  interior, then
+  $
+    integral_R f(z) dif z = 0
+  $
+]<cor:3>
+
+#proof[
+  We can split the rectangle $R$ into two triangles $T_1$ and $T_2$ by drawing a
+  diagonal. See @fig:6 for the illustration.
+
+  #figure(
+    image("./figures/dividing-a-rectangle-into-2-triangles.svg", width: 60%),
+    caption: [Dividing rectangle $R$ into two triangles.],
+  )<fig:6>
+
+  Then applying @thm:9 to each triangle, we have
+  $
+    integral_R f(z) dif z = integral_(T_1) f(z) dif z + integral_(T_2) f(z) dif z = 0
+  $
+]
+
+== Local Existence of Primitives and Cauchy's Theorem in a Disk
+
+#theorem[
+  If $f$ is holomorphic in an open disk $D subset.eq CC$, then $f$ has a primitive
+  there.
+]
+
+#proof[
+  Without loss of generality, we may assume the disk $D$ is centered at the
+  origin. If it is centered at $z_0$, we can translate the disk to the origin and
+  define $tilde(f)(z) = f(z + z_0)$. Then we find a primitive for $tilde(f)$, say $tilde(F)$.
+  The primitive for $f$ is then given by $F(z) = tilde(F)(z - z_0)$.
+
+  Assume $D$ is centered at the origin, we are going to construct a primitive $F$ for $f$ in $D$ using
+  a contour integral. For any point $z in D$, curve $gamma_z$ is taken to be the
+  horizontal line segment from $0$ to $Re z$ followed by the vertical segment from $Re z$ to $z$.
+  Note that $gamma_z$ is indeed contained in $D$. Let function $F$ be defined by
+  $
+    F(z) = integral_(gamma_z) f(w) dif w
+  $
+  We will show $F$ is indeed a primitive for $f$ in $D$. Hence, we need to
+  estimate the quotient $(F(z+h) - F(z)) / h$ when $h -> 0$.
+
+  This invites us to consider the contour integral of $f$ along curve $gamma_(z_h) - gamma_z$.
+  As illustrated in @fig:7, by adding a rectangle and a triangle without change
+  the value of the contour integral due to @thm:9 and cor:3, one may verify that
+  $
+    F(z+h) - F(z)
+    = integral_(gamma_(z+h) - gamma_z) f(w) dif w
+    = integral_eta f(w) dif w
+  $<eq:25>
+  where $eta$ is the line segment from $z$ to $z+h$.
+
+  #figure(
+    image("./figures/adding-a-rectangle-and-a-triangle.svg", width: 60%),
+    caption: [
+      Construction of curve $eta$ by adding a rectangle and a triangle to the curve $gamma_(z+h) - gamma_z$.
+    ],
+  )<fig:7>
+
+  Now, we are going to estimate $f(w)$ about the point $z$. Because $f$ is
+  continuous, we can write
+  $
+    f(w) = f(z) + psi(w), quad w in D without {z}
+  $
+  where $psi(w)$ is continuous and
+  $
+    lim_(w -> z) psi(w) = 0
+  $
+  It then follows that
+  $
+    integral_eta f(w) dif w
+      &= integral_eta f(z) + psi(w) dif w \
+      &= f(z) integral_eta 1 dif w + integral_eta psi(w) dif w \
+      &= f(z) h + integral_eta psi(w) dif w
+  $<eq:26>
+  Combining @eq:25 and @eq:26, we have
+  $
+    abs((F(z+h) - F(z)) / h - f(z))
+      &= 1 / abs(h) abs(integral_eta psi(w) dif w)\
+      &"Apply the ML inequality"\
+      &<= 1 / abs(h) max_(w in eta) abs(psi(w)) abs(h)\
+      &= max_(w in eta) abs(psi(w))
+  $<eq:27>
+  As $h -> 0$, we have $w -> z$ and hence $psi(w) -> 0$. Therefore, the limit of
+  the right-hand side of @eq:27 is $0$ as $h -> 0$. This proves $F'(z) = f(z)$.
 ]
 
 // References
