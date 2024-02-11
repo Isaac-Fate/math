@@ -1,9 +1,17 @@
-#import "@local/booxtyp:0.0.2": *
+#import "@local/booxtyp:0.0.1": *
 
 #show: book
 
+#cover(
+  [Mathematical Analysis],
+  image("figures/coffee.jpg"),
+  authors: ("Isaac Fei",),
+  bar-color: color-schema.orange.primary,
+)
+
 #outline()
 
-= Complex Numbers
+= The Real and Complex Number System
 
-$CC$
+$RR$
+

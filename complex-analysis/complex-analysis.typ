@@ -1483,6 +1483,14 @@ into two triangles.
   $
     lim_(w -> z) psi(w) = 0
   $
+
+  #note[
+    Estimating $f(w)$ about $z$ using the derivate of $f$ at $z$, like what we did
+    in the proof of @thm:9, may be an overkill. It suffices to estimate $f(w)$ by
+    exploiting the continuity of $f$. We have already used the fact that $f$ is
+    holomorphic to construct the curve $eta$ by applying the Goursat's theorem.
+  ]
+
   It then follows that
   $
     integral_eta f(w) dif w
@@ -1500,6 +1508,100 @@ into two triangles.
   $<eq:27>
   As $h -> 0$, we have $w -> z$ and hence $psi(w) -> 0$. Therefore, the limit of
   the right-hand side of @eq:27 is $0$ as $h -> 0$. This proves $F'(z) = f(z)$.
+]
+
+== Cauchy's Integral Formulas
+
+#theorem[
+  Let $D$ be an open disk, and $Omega$ an open set containing $overline(D)$. If $f$ is
+  holomorphic in $Omega$. Then for any point $z in D$, we have
+  $
+    f(z) = 1 / (2 pi i) integral_C f(zeta) / (zeta - z) dif zeta
+  $<eq:35>
+  where $C = diff D$ is the circle boundary of $D$.
+]
+
+#proof[
+  We will consider the contour integrals of the integrand
+  $
+    g(zeta) = f(zeta) / (zeta - z), quad zeta in Omega without {z}
+  $
+
+  Consider the $Gamma_(delta, epsilon)$ be a keyhole contour illustrated in
+  @fig:8. Here $delta$ denotes width of the corridor and $epsilon$ is the radius
+  of the small arc $gamma_epsilon$ centered at $z$. The outer arc is denoted by $gamma$ and
+  the two line segments forming the corridor are denoted by $ell_1$ and $ell_2$.
+  Cauchy's Theorem tells us the counter integral along $Gamma_(delta, epsilon)$ is
+  zero, i.e.,
+  $
+    integral_gamma g(zeta) dif zeta
+    + integral_(gamma_epsilon) g(zeta) dif zeta
+    + integral_(ell_1) g(zeta) dif zeta
+    + integral_(ell_2) g(zeta) dif zeta
+    = 0
+  $<eq:28>
+
+  #figure(image(
+    "./figures/keyhole-for-proving-the-cauchy-integral-formula.svg",
+    width: 60%,
+  ), caption: [The keyhole contour $Gamma_(delta, epsilon)$.])<fig:8>
+
+  As $delta -> 0$, the corridor gets narrower and narrower, the integrals along $ell_1$ and $ell_2$ will
+  cancel each other. To see this, consider the illustration in @fig:9.
+
+  #figure(
+    image("./figures/adding-a-rectangle-and-a-triangle.svg", width: 60%),
+    caption: [The keyhole contour $Gamma_(delta, epsilon)$ as $delta -> 0$.],
+  )<fig:9>
+
+  Meanwhile, as $delta -> 0$, the contour integrals along arcs will tend to the
+  integrals along the circles, i.e., $integral_(gamma) g(zeta) dif zeta -> integral_C g(zeta) dif zeta$ and $integral_(gamma_epsilon) g(zeta) dif zeta -> integral_(C_epsilon) g(zeta)dif zeta$.
+  Hence, letting $delta -> 0$, @eq:28 becomes
+  $
+    integral_C g(zeta) dif zeta + integral_(C_epsilon) g(zeta) dif zeta = 0
+  $<eq:29>
+
+  We now study the contour integral on $C_epsilon$. Note that
+  $
+    g(zeta) = f(zeta) / (zeta - z)
+    = (f(zeta) - f(z)) / (zeta - z) + f(z) / (zeta - z)
+  $<eq:31>
+  We claim that the first term on the right-hand side of the above equation is
+  bounded. This is because we may estimate $f(zeta)$ about point $z$ by (since $f$ is
+  holomorphic):
+  $
+    f(zeta) = f(z) + f'(z) (zeta - z) + psi(zeta) (zeta - z)
+  $<eq:30>
+  where $psi(zeta) -> 0$ as $zeta -> z$. Rearranging the terms in @eq:20, we have
+  $
+    (f(zeta) - f(z)) / (zeta - z) = f'(z) + psi(zeta)
+  $
+  Therefore, the modulus of the quotient $abs((f(zeta) - f(z)) / (zeta - z))$ is
+  bounded in a neighborhood of $z$. It then follows that
+  $
+    lim_(epsilon -> 0) integral_(C_epsilon) (f(zeta) - f(z)) / (zeta - z) dif zeta = 0
+  $<eq:32>
+  by applying the ML inequality. Reviewing @eq:31, we shall turn our attention to
+  the function $f(z) / (zeta - z)$ on $C_epsilon$. Let $C_epsilon^-$ be
+  parametrized by $zeta(t) = z + epsilon e^(i t), space t in [0, 2 pi]$. Then
+  $
+    integral_(C_epsilon) f(z) / (zeta - z) dif zeta
+      &= -integral_(C_epsilon^-) f(z) / (zeta - z) dif zeta\
+      &= -integral_0^(2 pi) f(z) / (epsilon e^(i t)) epsilon i e^(i t) dif t\
+      &= -f(z) integral_0^(2 pi) i dif t\
+      &= -2 pi i f(z)
+  $<eq:33>
+  which is in fact independent of $epsilon$. Therefore, as $epsilon -> 0$,
+  combining @eq:31, @eq:32, and @eq:33, we have
+  $
+    lim_(epsilon -> 0) integral_(C_epsilon) g(zeta) dif zeta = -2 pi i f(z)
+  $<eq:34>
+
+  Finally, combining @eq:29 and @eq:34, we have
+  $
+    integral_C g(zeta) dif zeta - 2 pi i f(z) = 0
+  $
+  which is exactly the Cauchy's integral formula @eq:35.
 ]
 
 // References
