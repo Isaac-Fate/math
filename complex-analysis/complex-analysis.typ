@@ -1519,7 +1519,7 @@ into two triangles.
     f(z) = 1 / (2 pi i) integral_C f(zeta) / (zeta - z) dif zeta
   $<eq:35>
   where $C = diff D$ is the circle boundary of $D$.
-]
+]<thm:10>
 
 #proof[
   We will consider the contour integrals of the integrand
@@ -1550,8 +1550,15 @@ into two triangles.
   cancel each other. To see this, consider the illustration in @fig:9.
 
   #figure(
-    image("./figures/adding-a-rectangle-and-a-triangle.svg", width: 60%),
-    caption: [The keyhole contour $Gamma_(delta, epsilon)$ as $delta -> 0$.],
+    image(
+      "./figures/adding-a-quadrilateral-to-two-line-segments.svg",
+      width: 60%,
+    ),
+    caption: [By adding a quadrilateral to the two line segments, the sum of the contour
+      integrals along $ell_1$ and $ell_2$ is equivalently transformed to the sum of
+      contour integrals along $ell_3$ and $ell_4$. As $delta -> 0$, both lengths of $ell_3$ and $ell_4$ tend
+      to zero, and hence the contour integrals along them will also vanish by the ML
+      inequality.],
   )<fig:9>
 
   Meanwhile, as $delta -> 0$, the contour integrals along arcs will tend to the
@@ -1602,6 +1609,65 @@ into two triangles.
     integral_C g(zeta) dif zeta - 2 pi i f(z) = 0
   $
   which is exactly the Cauchy's integral formula @eq:35.
+]
+
+#corollary[
+  Let $f$ be a holomorphic function in an open set $Omega$ containing a closed
+  disk $overline(D)$. Then $f$ is infinitely differentiable in $D$, and the $n$-th
+  derivative of $f$ at $z in D$ is given by
+  $
+    f^(n)(z) = n! / (2 pi i) integral_C f(zeta) / (zeta - z)^(n+1) dif zeta
+  $<eq:36>
+  where $C = diff D$ is the circle boundary of $D$.
+]
+
+#note[
+  Of course, $f$ is in fact infinitely differentiable in $Omega$ since for any
+  point $z in Omega$, we can find a closed disk $overline(D)(z, r)$ centered at $z$ and
+  contained in $Omega$.
+]
+
+#proof[
+  We shall prove by induction.
+
+  *Base Case:* If $n = 0$, then this corollary is exactly @thm:10.
+
+  *Inductive Step:* Suppose the corollary holds for $n = k - 1$. We shall show it
+  holds for $n = k$. Let $z in D$. To show the $k$-th derivate of $f$ exits at $z$,
+  we consider the quotient
+  $
+    (f^((k-1))(z + h) - f^((k-1))(z)) / h
+    = (k-1) / (2 pi i) integral_C f(zeta) / h (1 / (zeta - z - h)^(k) - 1 / (zeta - z)^(k)) dif zeta
+  $<eq:37>
+  To simply the difference of the two terms in the integrand, we recall a useful
+  formula:
+  $
+    A^k - B^k
+    = (A - B) sum_(j=0)^(k-1) A^(k-1-j) B^j
+    = (A - B) (A^(k-1) + A^(k-2) B + dots.c + B^(k-1))
+  $<eq:38>
+  Substituting $A = 1 / (zeta - z - h)$ and $B = 1 / (zeta - z)$ in @eq:38, we
+  have
+  $
+    1 / (zeta - z - h)^k - 1 / (zeta - z)^k
+      &= (1 / (zeta - z - h) - 1 / (zeta - z)) sum_(j=0)^(k-1) 1 / (zeta - z - h)^(k-1-j) 1 / (zeta - z)^j\
+      &= h / ((zeta - z - h) (zeta - z)) sum_(j=0)^(k-1) 1 / (zeta - z - h)^(k-1-j) 1 / (zeta - z)^j
+  $<eq:39>
+  Plugging the right-hand sided of @eq:39 into the integral of @eq:37, we obtain
+  $
+    (f^((k-1))(z + h) - f^((k-1))(z)) / h
+    = 1 / (2 pi i) integral_C f(zeta) sum_(j=0)^(k-1) 1 / (zeta - z - h)^(k-1-j) 1 / (zeta - z)^j dif zeta
+  $<eq:40>
+  Letting $h -> 0$ on both sides of @eq:40, we see that limit of the quotient
+  indeed exists and
+  $
+    f^((k))(z)
+      &= (k-1)! / (2 pi i) integral_C f(zeta) / (zeta - z)^2 sum_(j=0)^(k-1) 1 / (zeta - z)^(k-1-j) 1 / (zeta - z)^j dif zeta\
+      &= (k-1)! / (2 pi i) integral_C f(zeta) / (zeta - z)^2 sum_(j=0)^(k-1) 1 / (zeta - z)^(k-1) \
+      &= (k-1)! / (2 pi i) integral_C f(zeta) / (zeta - z)^2 dot k / (zeta - z)^(k-1) \
+      &= k! / (2 pi i) integral_C f(zeta) / (zeta - z)^(k+1) dif zeta
+  $
+  This completes the proof.
 ]
 
 // References
