@@ -1518,7 +1518,7 @@ into two triangles.
   $
     f(z) = 1 / (2 pi i) integral_C f(zeta) / (zeta - z) dif zeta
   $<eq:35>
-  where $C = diff D$ is the circle boundary of $D$.
+  where $C = diff D$ is the positively oriented circle boundary of $D$.
 ]<thm:10>
 
 #proof[
@@ -1611,14 +1611,23 @@ into two triangles.
   which is exactly the Cauchy's integral formula @eq:35.
 ]
 
+If we consider a rectangular keyhole instead of a circular one, then applying a
+similar argument as in the proof of @thm:10, we will find that the function
+value every point inside the rectangle can be evaluated by the contour integral
+along the rectangle boundary:
+
+$
+  f(z) = 1 / (2 pi i) integral_(R) f(zeta) / (zeta - z) dif zeta
+$
+
 #corollary[
   Let $f$ be a holomorphic function in an open set $Omega$ containing a closed
   disk $overline(D)$. Then $f$ is infinitely differentiable in $D$, and the $n$-th
   derivative of $f$ at $z in D$ is given by
   $
-    f^(n)(z) = n! / (2 pi i) integral_C f(zeta) / (zeta - z)^(n+1) dif zeta
+    f^((n))(z) = n! / (2 pi i) integral_C f(zeta) / (zeta - z)^(n+1) dif zeta
   $<eq:36>
-  where $C = diff D$ is the circle boundary of $D$.
+  where $C = diff D$ is the positively oriented circle boundary of $D$.
 ]
 
 #note[
@@ -1668,6 +1677,34 @@ into two triangles.
       &= k! / (2 pi i) integral_C f(zeta) / (zeta - z)^(k+1) dif zeta
   $
   This completes the proof.
+]
+
+Using the Cauchy's integral formula @eq:36, we can easily approximate an upper
+bound of the modulus of $n$-th derivative of a holomorphic function at a point
+in a disk by @eq:41. It is known as the #index[Cauchy's inequality].
+
+#corollary(
+  title: [Cauchy's Inequality],
+)[
+  Let $D$ be an open disk centered at $z_0$ with radius $R$. If $f$ is holomorphic
+  in an open set containing $overline(D)$, then the $n$-th derivative of $f$ at $z_0$ is
+  bounded by
+  $
+    abs(f^((n))(z_0)) <= (n! norm(f)_C) / R^n
+  $<eq:41>
+  where $norm(f)_C = max_(z in C) abs(f(z))$ and $C = diff D$.
+]
+
+#proof[
+  Using the Cauchy's integral formula @eq:36, we have
+  $
+    abs(f^((n))(z_0))
+      &= abs(n! / (2 pi i) integral_C f(zeta) / (zeta - z_0)^(n+1) dif zeta)\
+      &= n! / (2 pi) abs(integral_C f(zeta) / (zeta - z_0)^(n+1) dif zeta)\
+      &<= n! / (2 pi) max_(zeta in C) abs(f(zeta)) / abs(zeta - z_0)^(n+1) dot 2pi R\
+      &"Note that" abs(zeta - z_0) = R space forall zeta in C\
+      &= (n! norm(f)_C) / R^n
+  $
 ]
 
 // References
