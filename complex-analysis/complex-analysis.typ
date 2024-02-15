@@ -1707,6 +1707,117 @@ in a disk by @eq:41. It is known as the #index[Cauchy's inequality].
   $
 ]
 
+Next, we will show that a holomorphic function is in fact analytic, and it is
+given by its Taylor series.
+
+But before, we present the theorem and its proof, we need to first review the
+concepts of uniform convergence and term-by-term differentiation. What we aim to
+achieve is that one can interchange the order of contour integration and sum of
+complex functions under some conditions:
+$
+  integral_gamma sum_(n=0)^oo f_n (z) dif z = sum_(n=0)^oo integral_gamma f_n (z) dif z
+$
+
+Recall that we can integrate a uniformly convergent series of real functions
+term by term.
+
+#theorem[
+  Suppose the series $sum f_n$ converges uniformly to $f$ on $[a, b]$ where each $f_n$ is
+  real-valued and is Riemann integrable on $[a, b]$. Then
+  + $f$ is also Riemann integrable on $[a, b]$,
+  + the series of functions $sum integral_a^x f_n (t) dif t$ (regarded as functions
+    of $x$) converges uniformly to $integral_a^x f(t) dif t$ on $[a, b]$, i.e.,
+  $
+    integral_a^x sum_(n=0)^oo f_n (t) dif t
+    = sum_(n=0)^oo integral_a^x f_n (t) dif t
+  $<eq:42>
+
+  Specially,letting $x = b$ in @eq:42, we have
+  $
+    integral_a^b sum_(n=0)^oo f_n (x) dif x
+    = sum_(n=0)^oo integral_a^b f_n (x) dif x
+  $
+]
+
+The following lemma is an equivalent condition of saying $sum f_n$ converges
+uniformly. Here $f_n$ may be complex-valued, and it may take a complex variable.
+
+#lemma[
+  Let $f_n, space n in NN$ be complex-valued functions $f_n$ defined on $S subset.eq CC$.
+  Then $sum f_n$ converges uniformly on $S$ if and only if the $N$-tail $sum_(n=N+1)^oo f_n (z)$ (regarded
+  as a function of $z$) of the series is bounded for all $z in S$ when $N >= N_0$
+  where $N_0$ is some fixed integer, and
+  $
+    lim_(N -> oo) sup_(z in S) abs(sum_(n=N+1)^oo f_n (z)) = 0
+  $
+]<lem:1>
+
+Using the lemma above, we want to show that if we multiply a bounded function $g$ to
+each term $f_n$ of a uniformly convergent series , then the series $sum f_n g$ also
+converges uniformly.
+
+The reason why we care about this result is that we are going to study the
+series
+$
+  sum_(n=0)^oo f_n (z(t)) z'(t)
+$
+where $sum f_n$ converges uniformly and we know $z'(t)$ is bounded.
+
+#lemma[
+  Let $sum f_n$ be a series of complex-valued uniformly convergent series on $S subset.eq CC$.
+  If $g$ is a bounded function on $S$, then the series $sum f_n g$ converges
+  uniformly to $f g$ on $S$ where $f = sum f_n$.
+]
+
+#proof[
+  Suppose $abs(g(z)) <= M, space forall z in S$ where $M > 0$. Because $sum f_n$ converges,
+  the $N$-tail $sum_(n=N+1)^oo f_n (z)$ converges for each $z$ and $N$. And since $sum f_n$ converges
+  uniformly, $abs(sum_(n=N+1)^oo f_n (z))$ is a bounded function on $S$ for $N >= N_0$ for
+  some $N_0 in ZZ^+$. It then follows that
+  $
+    abs(sum_(n=N+1)^oo f_n (z) g(z))
+    = abs(g(z)) abs(sum_(n=N+1)^oo f_n (z))
+    <= M abs(sum_(n=N+1)^oo f_n (z)),
+    quad forall z in S, forall N >= N_0
+  $
+  Taking the supremum on both sides over the set $S$, we obtain
+  $
+    sup_(z in S) abs(sum_(n=N+1)^oo f_n (z) g(z))
+    <= M sup_(z in S) abs(sum_(n=N+1)^oo f_n (z))
+    quad forall N >= N_0
+  $
+  Then, let $N -> oo$, by @lem:1, the right-hand side goes to zero, and hence
+  $
+    lim_(N -> oo) sup_(z in S) abs(sum_(n=N+1)^oo f_n (z) g(z))
+    = 0
+  $
+  Therefore, again by @lem:1, $sum f_n g$ converges uniformly on $S$. And since
+  $
+    abs(sum_(n=0)^N f_n (z) g(z) - f(z) g(z))
+      &= abs(sum_(n=0)^N f_n (z) g(z) - sum_(n=0)^oo f_n (z) g(z))\
+      &= abs(sum_(n=N+1)^oo f_n (z) g(z))
+  $
+  we see that $sum f_n g$ indeed converges to $f g$.
+]
+
+#corollary[
+  Suppose a series of complex-valued functions $sum f_n$ converges to $f$ uniformly
+  convergent on a piecewise smooth curve $gamma subset.eq CC$. Let $gamma$ be
+  parametrized by $z(t), space t in [a, b]$. Then the series $sum f(z(t)) z'(t)$ converges
+  uniformly to $f(t) z'(t)$ on $[a, b]$, i.e.,
+  $
+    sum_(n=0)^oo f_n (z(t)) z'(t) = f(t) z'(t)
+  $
+]
+
+#lemma[
+  Suppose a series of continuous complex-valued functions $sum f_n$ converges to $f$ uniformly
+  convergent on a piecewise smooth curve $gamma subset.eq CC$. Then
+  $
+    integral_gamma sum_(n=0)^oo f_n (z) dif z = sum_(n=0)^oo integral_gamma f_n (z) dif z
+  $
+]
+
 // References
 #bibliography("complex-analysis.bib", title: "References")
 
