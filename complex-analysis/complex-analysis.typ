@@ -1739,20 +1739,7 @@ term by term.
   $
 ]
 
-The following lemma is an equivalent condition of saying $sum f_n$ converges
-uniformly. Here $f_n$ may be complex-valued, and it may take a complex variable.
-
-#lemma[
-  Let $f_n, space n in NN$ be complex-valued functions $f_n$ defined on $S subset.eq CC$.
-  Then $sum f_n$ converges uniformly on $S$ if and only if the $N$-tail $sum_(n=N+1)^oo f_n (z)$ (regarded
-  as a function of $z$) of the series is bounded for all $z in S$ when $N >= N_0$
-  where $N_0$ is some fixed integer, and
-  $
-    lim_(N -> oo) sup_(z in S) abs(sum_(n=N+1)^oo f_n (z)) = 0
-  $
-]<lem:1>
-
-Using the lemma above, we want to show that if we multiply a bounded function $g$ to
+In the next lemma, we want to show that if we multiply a bounded function $g$ to
 each term $f_n$ of a uniformly convergent series , then the series $sum f_n g$ also
 converges uniformly.
 
@@ -1767,37 +1754,20 @@ where $sum f_n$ converges uniformly and we know $z'(t)$ is bounded.
   Let $sum f_n$ be a series of complex-valued uniformly convergent series on $S subset.eq CC$.
   If $g$ is a bounded function on $S$, then the series $sum f_n g$ converges
   uniformly to $f g$ on $S$ where $f = sum f_n$.
-]
+]<lem:2>
 
 #proof[
-  Suppose $abs(g(z)) <= M, space forall z in S$ where $M > 0$. Because $sum f_n$ converges,
-  the $N$-tail $sum_(n=N+1)^oo f_n (z)$ converges for each $z$ and $N$. And since $sum f_n$ converges
-  uniformly, $abs(sum_(n=N+1)^oo f_n (z))$ is a bounded function on $S$ for $N >= N_0$ for
-  some $N_0 in ZZ^+$. It then follows that
+  Suppose $abs(g(z)) <= M, space forall z in S$ where $M > 0$. Let $epsilon > 0$ be
+  arbitrary. Because $sum f_n$ converges uniformly to $f$ on $S$, there exists an
+  integer $N$ such that
   $
-    abs(sum_(n=N+1)^oo f_n (z) g(z))
-    = abs(g(z)) abs(sum_(n=N+1)^oo f_n (z))
-    <= M abs(sum_(n=N+1)^oo f_n (z)),
-    quad forall z in S, forall N >= N_0
+    abs(sum_(n=0)^m f_n (z) - f(z)) < epsilon / M quad forall z in S, forall m >= N
   $
-  Taking the supremum on both sides over the set $S$, we obtain
+  Multiplying both sides of the above inequality by the modulus of $g(z)$ yields
   $
-    sup_(z in S) abs(sum_(n=N+1)^oo f_n (z) g(z))
-    <= M sup_(z in S) abs(sum_(n=N+1)^oo f_n (z))
-    quad forall N >= N_0
+    abs(sum_(n=0)^m f_n (z) g(z) - f(z) g(z)) < abs(g(z)) epsilon / M <= M dot epsilon / M = epsilon quad forall z in S, forall m >= N
   $
-  Then, let $N -> oo$, by @lem:1, the right-hand side goes to zero, and hence
-  $
-    lim_(N -> oo) sup_(z in S) abs(sum_(n=N+1)^oo f_n (z) g(z))
-    = 0
-  $
-  Therefore, again by @lem:1, $sum f_n g$ converges uniformly on $S$. And since
-  $
-    abs(sum_(n=0)^N f_n (z) g(z) - f(z) g(z))
-      &= abs(sum_(n=0)^N f_n (z) g(z) - sum_(n=0)^oo f_n (z) g(z))\
-      &= abs(sum_(n=N+1)^oo f_n (z) g(z))
-  $
-  we see that $sum f_n g$ indeed converges to $f g$.
+  This implies that $sum f_n g$ converges uniformly to $f g$ on $S$.
 ]
 
 #corollary[
@@ -1815,6 +1785,65 @@ where $sum f_n$ converges uniformly and we know $z'(t)$ is bounded.
   convergent on a piecewise smooth curve $gamma subset.eq CC$. Then
   $
     integral_gamma sum_(n=0)^oo f_n (z) dif z = sum_(n=0)^oo integral_gamma f_n (z) dif z
+  $
+]<lem:1>
+
+Finally, we are ready to prove that holomorphic functions are analytic.
+
+#theorem[
+  Suppose $f$ is holomorphic in an open set $Omega$, and $D$ is an open disk
+  centered at $z_0$ whose closure is contained in $Omega$. Then $f$ has a power
+  series expansion at $z_0$:
+  $
+    f(z) = sum_(n=0)^oo (f^((n))(z_0)) / n! (z - z_0)^n quad forall z in D
+  $
+]
+
+#proof[
+  Applying Cauchy's integral formula to $f(z)$, we have
+  $
+    f(z) = 1 / (2 pi i) integral_C f(zeta) / (zeta - z) dif zeta
+  $<eq:43>
+  where $C = diff D$.
+
+  #note[
+    The highlight of the proof is to expand the integrand $f(zeta) / (zeta - z)$ as
+    a geometric series so that the infinite sum $sum$ may appear. And then we may
+    interchange the order of integration and summation.
+  ]
+
+  The integrand can be written as
+  $
+    f(zeta) / (zeta - z) &= f(zeta) / (zeta - z_0) dot 1 / (1 - (z - z_0) / (zeta - z_0))\
+                         &"Note that" 1 / (1 - (z - z_0) / (zeta - z_0)) "is the sum of a geometric series"\
+                         &= f(zeta) / (zeta - z_0) sum_(n=0)^oo ((z - z_0) / (zeta - z_0))^n\
+                         &= sum_(n=0)^oo f(zeta) / (zeta - z_0)^(n+1) dot (z - z_0)^n
+  $<eq:44>
+  Combining @eq:43 and @eq:44, we have
+  $
+    f(z)
+    = 1 / (2 pi i) integral_C sum_(n=0)^oo f(zeta) / (zeta - z_0)^(n+1) dot (z - z_0)^n dif zeta
+  $
+
+  #note[
+    We claim $f(zeta) / (zeta - z_0)^(n+1) dot (z - z_0)^n$ (a function of $zeta$)
+    converges uniformly on $C$. To see this, we may apply @lem:2 to argue that
+    because the series $sum (z - z_0)^n / (zeta - z_0)^(n+1)$ converges uniformly
+    (since it is a geometric series) and $f(zeta)$ is bounded on $C$ (since it is
+    continuous and $C$ is compact), the product $f(zeta) / (zeta - z_0)^(n+1) dot (z - z_0)^n$ also
+    converges uniformly on $C$.
+  ]
+
+  Because $f(zeta) / (zeta - z_0)^(n+1) dot (z - z_0)^n$ converges uniformly on
+  the circle $C$, we may move the contour integration into the sum by @lem:1. We
+  have
+  $
+    f(z)
+      &= 1 / (2 pi i) sum_(n=0)^oo integral_C f(zeta) / (zeta - z_0)^(n+1) dot (z - z_0)^n dif zeta\
+      &"Transform the expression to conform to Cauchy's integral formula"\
+      &= sum_(n=0)^oo n! / (2 pi i) integral_C f(zeta) / (zeta - z_0)^(n+1) dif zeta dot (z - z_0)^n / n!\
+      &"Apply the Cauchy's integral formula"\
+      &= sum_(n=0)^oo f^((n)) (z_0) dot (z - z_0)^n / n!
   $
 ]
 
