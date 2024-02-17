@@ -771,7 +771,7 @@ In the following, we will prove a slightly more general result.
 
 #definition[
   Let $f: Omega -> CC$ be a function defined on an open set $Omega subset.eq CC$.
-  We say $f$ is #index(entry: [holomorphic functions])[holomorphic] at $z in Omega$ if
+  We say $f$ is #index(entry: [complex differentiable functions])[complex differentiable] at $z in Omega$ if
   the quotient
   $
     (f(z + h) - f(z)) / h
@@ -781,11 +781,30 @@ In the following, we will prove a slightly more general result.
   $
     f'(z) = lim_(h -> 0) (f(z + h) - f(z)) / h
   $
+  We say $f$ is #index(entry: [holomorphic functions])[holomorphic] in an open set $Omega$ if $f$ is
+  complex differentiable at every point of $Omega$. And we say $f$ is holomorphic
+  at a point $z$ if if is holomorphic in a neighborhood of $z$.
 ]
 
 #note[
-  As we shall see later, if $f$ is holomorphic at $z$, then $f$ must also be
-  holomorphic in a neighborhood of $z$.
+  It should be emphasized that $f$ being holomorphic at a point $z$ is not the
+  same as $f$ being complex differentiable at $z$.
+]
+
+#example[
+  Function $f(z) = abs(z)^2, space z in CC$ is complex differentiable at $z = 0$.
+  But it is not holomorphic at $z = 0$.
+
+  To see $f$ is complex differentiable at $z = 0$, we have
+  $
+    (f(h) - f(0)) / h
+    = (abs(h)^2 - 0) / h
+    = (h overline(h)) / h
+    = overline(h)
+  $
+  It is cleat that $overline(h) -> 0$ as $h -> 0$. Therefore, $f'(0) = 0$.
+
+  Now, we show that $f$ is not holomorphic at $z = 0$.
 ]
 
 Recall in real analysis, we introduced the concept of infinite derivatives to
@@ -1260,7 +1279,7 @@ the contour integral will be zero.
 #corollary[
   If $f$ is holomorphic in a connected open set $Omega$ and $f' = 0$, then $f$ is
   constant.
-]
+]<cor:5>
 
 #proof[
   Pick a point $z_0 in Omega$. Because $Omega$ is connected, by @thm:8, there
@@ -1693,7 +1712,7 @@ in a disk by @eq:41. It is known as the #index[Cauchy's inequality].
     abs(f^((n))(z_0)) <= (n! norm(f)_C) / R^n
   $<eq:41>
   where $norm(f)_C = max_(z in C) abs(f(z))$ and $C = diff D$.
-]
+]<cor:4>
 
 #proof[
   Using the Cauchy's integral formula @eq:36, we have
@@ -1705,6 +1724,29 @@ in a disk by @eq:41. It is known as the #index[Cauchy's inequality].
       &"Note that" abs(zeta - z_0) = R space forall zeta in C\
       &= (n! norm(f)_C) / R^n
   $
+]
+
+Observe @eq:41. Let $n$ be fixed. As the radius $R$ becomes larger and larger,
+the denominator on the right-hand side will tend to infinity. And if $f$ is
+bounded globally, then $norm(f)_C$ is bounded, which implies the quotient on the
+right-hand side will tend to zero. Then this inequality tells us that the
+derivate of $f$ of any order vanishes if $f$ is defined and holomorphic on the
+entire complex plane and is bounded. In particular the first order derivate $f'$ is
+constantly zero, which means $f$ is in fact just a constant function. This
+result is known as the #index[Liouville's theorem].
+
+#theorem(title: [Liouville's Theorem])[
+  If $f$ is entire and bounded, then $f$ is constant.
+]
+
+#proof[
+  Suppose $abs(f(z)) < M space forall z in CC$ for some $M > 0$. For any disk
+  centered at the origin with radius $R$, applying Cauchy's inequality in @cor:4,
+  we have
+  $
+    abs(f'(z)) <= (norm(f)_C) / R < M / R quad forall R > 0
+  $
+  Letting $R -> oo$, we have $f'(z) = 0$. This implies $f$ is constant by @cor:5.
 ]
 
 Next, we will show that a holomorphic function is in fact analytic, and it is
@@ -1796,7 +1838,7 @@ Finally, we are ready to prove that holomorphic functions are analytic.
   series expansion at $z_0$:
   $
     f(z) = sum_(n=0)^oo (f^((n))(z_0)) / n! (z - z_0)^n quad forall z in D
-  $
+  $<eq:45>
 ]
 
 #proof[
@@ -1846,6 +1888,10 @@ Finally, we are ready to prove that holomorphic functions are analytic.
       &= sum_(n=0)^oo f^((n)) (z_0) dot (z - z_0)^n / n!
   $
 ]
+
+A simple observation is that the power series in @eq:45 at $z$ will converge as
+long as we can find a closed disk $overline(D)$ centered at $z_0$ that contains
+this point $z$.
 
 // References
 #bibliography("complex-analysis.bib", title: "References")
