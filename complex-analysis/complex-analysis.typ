@@ -1698,57 +1698,6 @@ $
   This completes the proof.
 ]
 
-Using the Cauchy's integral formula @eq:36, we can easily approximate an upper
-bound of the modulus of $n$-th derivative of a holomorphic function at a point
-in a disk by @eq:41. It is known as the #index[Cauchy's inequality].
-
-#corollary(
-  title: [Cauchy's Inequality],
-)[
-  Let $D$ be an open disk centered at $z_0$ with radius $R$. If $f$ is holomorphic
-  in an open set containing $overline(D)$, then the $n$-th derivative of $f$ at $z_0$ is
-  bounded by
-  $
-    abs(f^((n))(z_0)) <= (n! norm(f)_C) / R^n
-  $<eq:41>
-  where $norm(f)_C = max_(z in C) abs(f(z))$ and $C = diff D$.
-]<cor:4>
-
-#proof[
-  Using the Cauchy's integral formula @eq:36, we have
-  $
-    abs(f^((n))(z_0))
-      &= abs(n! / (2 pi i) integral_C f(zeta) / (zeta - z_0)^(n+1) dif zeta)\
-      &= n! / (2 pi) abs(integral_C f(zeta) / (zeta - z_0)^(n+1) dif zeta)\
-      &<= n! / (2 pi) max_(zeta in C) abs(f(zeta)) / abs(zeta - z_0)^(n+1) dot 2pi R\
-      &"Note that" abs(zeta - z_0) = R space forall zeta in C\
-      &= (n! norm(f)_C) / R^n
-  $
-]
-
-Observe @eq:41. Let $n$ be fixed. As the radius $R$ becomes larger and larger,
-the denominator on the right-hand side will tend to infinity. And if $f$ is
-bounded globally, then $norm(f)_C$ is bounded, which implies the quotient on the
-right-hand side will tend to zero. Then this inequality tells us that the
-derivate of $f$ of any order vanishes if $f$ is defined and holomorphic on the
-entire complex plane and is bounded. In particular the first order derivate $f'$ is
-constantly zero, which means $f$ is in fact just a constant function. This
-result is known as the #index[Liouville's theorem].
-
-#theorem(title: [Liouville's Theorem])[
-  If $f$ is entire and bounded, then $f$ is constant.
-]
-
-#proof[
-  Suppose $abs(f(z)) < M space forall z in CC$ for some $M > 0$. For any disk
-  centered at the origin with radius $R$, applying Cauchy's inequality in @cor:4,
-  we have
-  $
-    abs(f'(z)) <= (norm(f)_C) / R < M / R quad forall R > 0
-  $
-  Letting $R -> oo$, we have $f'(z) = 0$. This implies $f$ is constant by @cor:5.
-]
-
 Next, we will show that a holomorphic function is in fact analytic, and it is
 given by its Taylor series.
 
@@ -1892,6 +1841,57 @@ Finally, we are ready to prove that holomorphic functions are analytic.
 A simple observation is that the power series in @eq:45 at $z$ will converge as
 long as we can find a closed disk $overline(D)$ centered at $z_0$ that contains
 this point $z$.
+
+Using the Cauchy's integral formula @eq:36, we can easily approximate an upper
+bound of the modulus of $n$-th derivative of a holomorphic function at a point
+in a disk by @eq:41. It is known as the #index[Cauchy's inequality].
+
+#corollary(
+  title: [Cauchy's Inequality],
+)[
+  Let $D$ be an open disk centered at $z_0$ with radius $R$. If $f$ is holomorphic
+  in an open set containing $overline(D)$, then the $n$-th derivative of $f$ at $z_0$ is
+  bounded by
+  $
+    abs(f^((n))(z_0)) <= (n! norm(f)_C) / R^n
+  $<eq:41>
+  where $norm(f)_C = max_(z in C) abs(f(z))$ and $C = diff D$.
+]<cor:4>
+
+#proof[
+  Using the Cauchy's integral formula @eq:36, we have
+  $
+    abs(f^((n))(z_0))
+      &= abs(n! / (2 pi i) integral_C f(zeta) / (zeta - z_0)^(n+1) dif zeta)\
+      &= n! / (2 pi) abs(integral_C f(zeta) / (zeta - z_0)^(n+1) dif zeta)\
+      &<= n! / (2 pi) max_(zeta in C) abs(f(zeta)) / abs(zeta - z_0)^(n+1) dot 2pi R\
+      &"Note that" abs(zeta - z_0) = R space forall zeta in C\
+      &= (n! norm(f)_C) / R^n
+  $
+]
+
+Observe @eq:41. Let $n$ be fixed. As the radius $R$ becomes larger and larger,
+the denominator on the right-hand side will tend to infinity. And if $f$ is
+bounded globally, then $norm(f)_C$ is bounded, which implies the quotient on the
+right-hand side will tend to zero. Then this inequality tells us that the
+derivate of $f$ of any order vanishes if $f$ is defined and holomorphic on the
+entire complex plane and is bounded. In particular the first order derivate $f'$ is
+constantly zero, which means $f$ is in fact just a constant function. This
+result is known as the #index[Liouville's theorem].
+
+#theorem(title: [Liouville's Theorem])[
+  If $f$ is entire and bounded, then $f$ is constant.
+]
+
+#proof[
+  Suppose $abs(f(z)) < M space forall z in CC$ for some $M > 0$. For any disk
+  centered at the origin with radius $R$, applying Cauchy's inequality in @cor:4,
+  we have
+  $
+    abs(f'(z)) <= (norm(f)_C) / R < M / R quad forall R > 0
+  $
+  Letting $R -> oo$, we have $f'(z) = 0$. This implies $f$ is constant by @cor:5.
+]
 
 // References
 #bibliography("complex-analysis.bib", title: "References")
