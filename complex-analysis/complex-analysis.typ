@@ -1492,7 +1492,6 @@ into two triangles.
       Construction of curve $eta$ by adding a rectangle and a triangle to the curve $gamma_(z+h) - gamma_z$.
     ],
   )<fig:7>
-
   Now, we are going to estimate $f(w)$ about the point $z$. Because $f$ is
   continuous, we can write
   $
@@ -1527,6 +1526,163 @@ into two triangles.
   $<eq:27>
   As $h -> 0$, we have $w -> z$ and hence $psi(w) -> 0$. Therefore, the limit of
   the right-hand side of @eq:27 is $0$ as $h -> 0$. This proves $F'(z) = f(z)$.
+]
+
+#exercise[
+  Show that the values of the #index[Fresnel integrals] are given by
+  $
+    integral_0^oo sin x^2 dif x = integral_0^oo cos x^2 dif x = sqrt(2pi) / 4
+  $<eq:54>
+]
+
+#solution[
+  Let $f(z) = e^(-z^2)$. Consider the contour shown in @fig:10. By Cauchy's
+  Theorem, the integrals of $f$ along $ell_1 + gamma$ and $ell_2$ should be equal,
+  i.e.,
+  $
+    integral_(ell_1) f(z) dif z + integral_(gamma) f(z) dif z = integral_(ell_2) f(z) dif z
+  $<eq:49>
+
+  #figure(
+    image("./figures/contour-for-fresnel-integrals.svg", width: 60%),
+    caption: [
+      $ell_1 + gamma + ell_2^-$ is a sector, which is $1/8$ of a circle. We further
+      divide the curve $gamma$ into two pieces, $tilde(gamma)$ and $gamma_epsilon$.
+      $tilde(gamma)$ is the major piece while $gamma_epsilon$ is the minor one with
+      length $epsilon = pi / sqrt(R)$.
+    ],
+  )<fig:10>
+
+  *On Curve $ell_1$:* The values of the Fresnel integrals are primarily
+  contributed by the integral along this curve. Let $ell_1$ be parameterized by $z(t) = t, space t in [0, R]$.
+  We have
+  $
+    integral_(ell_1) f(z) dif z
+    = integral_0^R e^(-t^2) dif t
+  $
+  As $R -> oo$, the right-hand side becomes the famous Gaussian integral
+  (actually, half of the Gaussian integral). We have
+  $
+    lim_(R -> oo) integral_(ell_1) f(z) dif z
+    = integral_0^oo e^(-t^2) dif t = sqrt(pi) / 2
+  $<eq:50>
+
+  *On Curve $ell_2$:* Let $ell_2$ be parameterized by $z(t) = t e^(i pi/4), space t in [0, R]$.
+  We have
+  $
+    integral_(ell_2) f(z) dif z
+      &= integral_0^R e^(-t^2 e^(i pi/2)) e^(i pi / 4) dif t\
+      &= e^(i pi/4) integral_0^R e^(-i t^2) dif t\
+      &= e^(i pi/4)( integral_0^R cos t^2 dif t + i integral_0^R sin t^2 dif t)\
+      &= (1/sqrt(2) + i/sqrt(2))( integral_0^R cos t^2 dif t + i integral_0^R sin t^2 dif t)\
+      &= 1/sqrt(2)(integral_0^R cos t^2 dif t - integral_0^R sin t^2 dif t) + i/sqrt(2) (integral_0^R cos t^2 dif t + integral_0^R sin t^2 dif t)
+  $<eq:51>
+
+  Next, we will show the contour integral along $gamma$ is zero when $R -> oo$. We
+  will show this using the ML inequality.
+
+  *On Curve $tilde(gamma)$:* On this major piece $tilde(gamma)$ of $gamma$, we
+  will show the M (the maximum modulus in the context of ML inequality) will
+  decays to $0$ as $R -> oo$. And the rate of decay is so fact that even though
+  the length L will tend to infinitely, M will cancel its increase.
+
+  For a point $z in tilde(gamma)$, write $z = R cos theta + i R sin theta$, the
+  modulus of $f$ is then given by
+  $
+    abs(f(z)) &= abs(e^(-z^2))\
+              &= abs(e^(-R^2(cos^2 theta - sin^2 theta)) e^(-i 2R^2 cos theta sin theta))\
+              &"The modulus of a pure imaginary number is zero"\
+              &= e^(-R^2(cos^2 theta - sin^2 theta))\
+              &= e^(-R^2 cos 2 theta)\
+  $
+  Because $0 <= theta <= pi/4 - pi / (R sqrt(R))$, the maximum modulus is taken
+  when $theta =pi/4 - pi / (R sqrt(R)) $:
+  $
+    abs(f(z)) <= e^(-R^2 sin (2pi) / (R sqrt(R))) quad forall z in tilde(gamma)
+  $
+
+  #note[
+    The length of $tilde(gamma)$ is
+    $
+      len(tilde(gamma)) = (pi R) / 4 - pi / sqrt(R) = O(R)
+    $
+
+    We need to find a way to cancel $O(R)$. First, note that the variable of the
+    sine function tends to zero as $R -> 0$. We need to use the limit
+    $
+      lim_(x -> 0) (sin x) / x = 1
+    $
+    to control the sine term. Then we will use the series expansion of $e^x$ to
+    generate a term with sufficient power of $R$ to cancel $O(R)$.
+  ]
+
+  Next, we will further estimate the right-hand side. We have
+  $
+    e^(-R^2 sin pi / (R sqrt(R)))
+      &= e^(-2pi sqrt(R) dot (R sqrt(R))/(2pi) sin (2pi)/ (R sqrt(R)))\
+      &"To ease the notation, write" g(R) = 2pi sqrt(R) dot (R sqrt(R))/(2pi) sin (2pi)/ (R sqrt(R))\
+      &"Note" g(R) > 0 "when" R "is sufficiently large"\
+      &= e^(-g(R))\
+      &<= 1 / (1 + g(R) + 1/2 g^2(R) + 1/6 g^3(R))\
+      &<=1 / (1/6 g^3(R))
+  $<eq:46>
+
+  Since the term $(R sqrt(R))/(2pi) sin (2pi)/ (R sqrt(R)) -> 1$ in $g(R)$ as $R -> oo$,
+  we can conclude form @eq:46 that
+  $
+    abs(f(z)) <= e^(-R^2 sin pi / (R sqrt(R))) = O(1 / (R sqrt(R)))
+  $<eq:47>
+
+  On the other hand the length of $tilde(gamma)$ is
+  $
+    len(tilde(gamma)) = (pi R) / 4 - pi / sqrt(R) = O(R)
+  $<eq:48>
+
+  Combining @eq:46 and @eq:48, the ML inequality yields
+  $
+    abs(integral_tilde(gamma) f(z) dif z)
+    <= max_(z in tilde(gamma)) abs(f(z)) len(tilde(gamma))
+    = O(1 / (R sqrt(R))) O(R)
+    = O(1 / sqrt(R))
+  $
+
+  Therefore,
+  $
+    lim_(R -> oo) integral_tilde(gamma) f(z) dif z = 0
+  $<eq:52>
+
+  *On Curve $gamma_epsilon$:* Along this curve, we will show M is actually bounded
+  by $1$ and the length of $gamma_epsilon$ will tend to zero as $R -> oo$.
+
+  Similarly, the modulus of $f$ is given by
+  $
+    abs(f(z)) = e^(-z^2) = e^(-R^2 cos 2 theta), quad pi/4 - pi/(R sqrt(R)) <= theta <= pi / 4
+  $
+  Since $e^(-R^2 cos 2 theta)$ is a decreasing function, we have
+  $
+    abs(f(z)) <= 1 quad forall z in gamma_epsilon
+  $
+
+  The length of $gamma_epsilon$ is simply given by
+  $
+    len(gamma_epsilon) = pi / sqrt(R)
+  $
+
+  Therefore, by applying the ML inequality, we have
+  $
+    abs(integral_(gamma_epsilon) f(z) dif z) <= max_(z in gamma_epsilon) abs(f(z)) len(gamma_epsilon)
+    = 1 dot pi / sqrt(R)
+  $
+
+  Letting $R -> oo$, it follows that
+  $
+    lim_(R -> oo) integral_(gamma_epsilon) f(z) dif z = 0
+  $<eq:53>
+
+  Finally, combining @eq:49, @eq:50, @eq:51, @eq:52 and @eq:53 together, we find
+  the the Fresnel integrals indeed exist (the limits exist as $R -> oo$), and are
+  given by @eq:54.
+
 ]
 
 == Cauchy's Integral Formulas
