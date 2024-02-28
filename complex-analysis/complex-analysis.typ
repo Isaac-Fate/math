@@ -2037,7 +2037,7 @@ result is known as the #index[Liouville's theorem].
 
 #theorem(title: [Liouville's Theorem])[
   If $f$ is entire and bounded, then $f$ is constant.
-]
+]<thm:11>
 
 #proof[
   Suppose $abs(f(z)) < M space forall z in CC$ for some $M > 0$. For any disk
@@ -2047,6 +2047,89 @@ result is known as the #index[Liouville's theorem].
     abs(f'(z)) <= (norm(f)_C) / R < M / R quad forall R > 0
   $
   Letting $R -> oo$, we have $f'(z) = 0$. This implies $f$ is constant by @cor:5.
+]
+
+As an application of Liouville's theorem, we can provide a simple and elegant
+proof of the #index[fundamental theorem of algebra].
+
+#theorem(
+  title: [Fundamental Theorem of Algebra],
+)[
+  Every polynomial with degree greater than $0$ with complex coefficients has a
+  root in $CC$.
+]
+
+#proof[
+  Let polynomial $p(z)$ be given by
+  $
+    p(z) = a_n z^n + dots.c a_1 z + a_0
+  $
+  where $n >= 1$ and $a_n != 0$. We shall prove by contradiction. Assume $p(z)$ has
+  no roots in $CC$. Then the reciprocal $1 / p(z)$ is defined on the entire
+  complex plane. Moreover, the derivate of $1 / p(z)$ clearly exists everywhere.
+  Therefore, $1 / p(z)$ is entire. We will use Liouville's theorem to establish a
+  contradiction. To do so, we are going $1 / p(z)$ is bounded.
+
+  We have
+  $
+    p(z) / z^n = a_n + a_(n-1) / z + dots.c + a_1 / z^(n-1) + a_0 / z^n
+  $
+  Note that when $abs(z) -> oo$, the modulus of the quotient $p(z) / z^n$ will
+  tend to $abs(a_n)$. This implies that there exists $R > 0$ such that
+  $
+    abs(p(z) / z^n) > abs(a_n) / 2
+  $<eq:55>
+  whenever $abs(z) > R$. Rearranging @eq:55, we have
+  $
+    abs(1 / p(z)) < 2 / abs(a_n) dot 1 / abs(z)^n < 2 / (abs(a_n) R^n) quad "if" abs(z) > R
+  $
+  The above inequality shows $1 / p(z)$ is bounded outside the disk $D$ centered
+  at $0$ with radius $R$.
+
+  For points inside the closed disk $overline(D)$, since function $abs(1 / p(z))$ is
+  continuous and $overline(D)$ is compact, $abs(1 / p(z))$ attains its maximum $M$ on $overline(D)$.
+
+  Therefore, we see that $1 / p(z)$ is indeed bounded on entire complex plane $CC$.
+  By Liouville's theorem @thm:11, $1 / p(z)$ is constant, which leads to a
+  contradiction since polynomials with degree greater than $0$ are non-constant.
+
+  #note[
+    The last assertion that polynomials with degree greater than $0$ are
+    non-constant seem evident. But the reader should still prove it. See @prop:4.
+    And the proof is not that trivial.
+  ]
+]
+
+#proposition[
+  Polynomials with degree greater than $0$ are non-constant.
+]<prop:4>
+
+#proof[
+  To prove polynomial $p(z)$ is non-constant, we show that its derivative $p'(z)$ is
+  nonzero. And we will prove this by induction. Let hypothesis $P(n)$ be that the
+  polynomial
+  $
+    p(z) = a_n z^n + dots.c + a_1 z + a_0, quad a_n != 0
+  $
+  is nonzero for all nonnegative integer $n in NN$.
+
+  *Base Case:* If $n = 0$, then $p(z) = a_0 != 0$.
+
+  *Inductive Step:* Suppose $P(k)$ holds, we need to show $P(k+1)$ also holds. Let
+  $
+    p(z) = a_(k+1) z^(k+1) + dots.c + a_1 z + a_0, quad a_(k+1) != 0
+  $
+  Its derivative is
+  $
+    p'(z) = (k+1) a_(k+1) z^k + dots.c + 2a_2 z + a_1
+  $
+  Clearly, $p'(z)$ is a polynomial with degree $k$. Therefore, by the hypothesis $P(k)$, $p'(z)$ is
+  nonzero. This implies that $p(z)$ is non-constant. Specially, $p(z)$ is nonzero,
+  which shows $P(k+1)$ also holds.
+
+  Now, for any polynomial $p(z)$ with degree $n >= 1$ we have shown its derivate $p'(z)$,
+  which is a polynomial with degree greater than $0$ is a nonzero function.
+  Therefore, $p(z)$ is non-constant.
 ]
 
 // References
